@@ -6,7 +6,6 @@
 | UWA ID       | name              | Git-Hub Username |
 |--------------|-------------------|------------------|
 | 23213995     | Tyler Etherton    | T-Eth            |
-
 | 23123894     | Jansen Chuah      | JC3009           |
 
 
