@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            z-index: 1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background-color: #f9f9f9;
+            border: 1px solid black;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .search-container {
+            position: relative;
+        }
+        .search-container input[type="text"] {
+            padding-left: 30px;
+        }
+        .search-container::before {
+            content: "\1F50D";
+            position: absolute;
+            left: 10px;
+            top: 7px;
+            font-size: 16px;
+        }
+        .gif-container {
+            position: relative;
+            width: 100%;
+        }
+        .gif-container img {
+            width: 100%;
+            height: auto;
+        }
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Logo">
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#">Categories</a>
+                    <div class="dropdown-content">
+                        <a href="#"></a>
+                        <a href="#">Tab 2</a>
+                        <!-- Add more tabs as needed -->
+                        <a href="#">Tab 10</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="signin">
+            <a href="{{ url_for('login') }}">Sign In</a>
+        </div>
+    </header>
+    <div class="gif-container">
+        <img src="{{ url_for('static', filename='images/Tradie_Digging.gif') }}" alt="GIF">
+        <div class="overlay-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mollis mi at lacinia euismod. Sed lacinia mauris nec lacus accumsan pulvinar. Sed lacinia mauris nec lacus accumsan pulvinar.</div>
+    </div>
+    <section class="image-section">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 1">
+            <p>Text for image 1</p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 2">
+            <p>Text for image 2</p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 3">
+            <p>Text for image 3</p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 4">
+            <p>Text for image 4</p>
+        </div>
+    </section>
+    <section class="credits-section">
+        <h2>Credits</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        </p>
+    
+        </section>
+    {% block content %}{% endblock %}
+    <script>
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.querySelector("header").classList.add("scrolled");
+          } else {
+            document.querySelector("header").classList.remove("scrolled");
+          }
+        }
+        </script>
+</body>
+</html>
