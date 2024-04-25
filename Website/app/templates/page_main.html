@@ -2,63 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            min-width: 160px;
-            z-index: 1;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            background-color: #f9f9f9;
-            border: 1px solid black;
-        }
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .search-container {
-            position: relative;
-        }
-        .search-container input[type="text"] {
-            padding-left: 30px;
-        }
-        .search-container::before {
-            content: "\1F50D";
-            position: absolute;
-            left: 10px;
-            top: 7px;
-            font-size: 16px;
-        }
-        .gif-container {
-            position: relative;
-            width: 100%;
-        }
-        .gif-container img {
-            width: 100%;
-            height: auto;
-        }
-        .overlay-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 24px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -73,10 +16,8 @@
                 <li class="dropdown">
                     <a href="#">Categories</a>
                     <div class="dropdown-content">
-                        <a href="#"></a>
+                        <a href="#">Tab 1</a>
                         <a href="#">Tab 2</a>
-                        <!-- Add more tabs as needed -->
-                        <a href="#">Tab 10</a>
                     </div>
                 </li>
             </ul>
@@ -145,16 +86,6 @@
     
         </section>
     {% block content %}{% endblock %}
-    <script>
-        window.onscroll = function() {scrollFunction()};
-        
-        function scrollFunction() {
-          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-            document.querySelector("header").classList.add("scrolled");
-          } else {
-            document.querySelector("header").classList.remove("scrolled");
-          }
-        }
-        </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
