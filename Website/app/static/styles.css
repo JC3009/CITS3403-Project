@@ -157,3 +157,15 @@ header.scrolled {
     font-size: 24px;
     text-align: center;
 }
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-box {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 300px;
+}
