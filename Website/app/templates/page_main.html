@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img id="logo" src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Logo">
+        </div>
+        <div class="title-container">
+            <h1>Job Matchmaker</h1>
+        </div>
+        <div class="signin">
+            <a href="{{ url_for('login') }}">Create Account/ Sign In</a>
+        </div>
+    </header>
+    <div class="gif-container">
+        <img src="{{ url_for('static', filename='images/Tradie_Digging.gif') }}" alt="GIF">
+        <div class="overlay-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mollis mi at lacinia euismod. Sed lacinia mauris nec lacus accumsan pulvinar. Sed lacinia mauris nec lacus accumsan pulvinar.</div>
+        <div class="button-container">
+            <a href="{{ url_for('login') }}">Create Account/ Sign In</a>
+        </div>
+    </div>
+    <section class="image-section">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 1">
+            <p>Text for image 1</p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 2">
+            <p>Text for image 2</p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 3">
+            <p>Text for image 3</p>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 4">
+            <p>Text for image 4</p>
+        </div>
+    </section>
+    <section class="credits-section">
+        <h2>Credits</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
+
+            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        </p>
+    
+        </section>
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,70 +1,158 @@
-body {
+body { 
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 0; 
+    box-sizing: border-box; 
 }
 
-header {
-    display: flex;
-    justify-content: flex-start;
+header { 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 2%; 
+    background-image: url('images/placeholderbanner.png'); 
+    background-size: cover; 
+    background-position: center;
+}
+
+.title-container {
+    margin-right: auto; /* Pushes the title container to the left */
+    margin-left: 700px; /* Adjust the margin-left value as needed */
+    justify-content: center;
     align-items: center;
-    padding: 20px 2%;
-    background-image: url('images/placeholderbanner.png'); /* Add this line */
-    background-size: cover; /* Add this line */
-    background-position: center; /* Add this line */
+    text-align: center;
+}
+#logo.scrolled { 
+    transform: scale(0.5) translateY(-70%); 
+    transition: height 0.3s ease-in-out; 
 }
 
-.logo-container {
-    width: 5%;
-    align-self: flex-start;
+.logo-container { 
+    margin-top: -10px; 
+    width: 5%; 
+    align-self: flex-start; 
 }
 
-.logo-container img {
-    width: 100%;
-}
-
-.search-container {
-    width: 40%;
-    margin-left: 50px;
-}
-
-.search-container input {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
-    width: 100%
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-    margin-left: 50px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-nav ul li {
-    border: 1px solid #ffffff;
-    padding: 10px 50px;
-    margin-right: 250px;
-    background-color: #ffffff;
-    color: #000000;
-    min-width: 100px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: inherit;
+.logo-container img { 
+    width: 100%; 
 }
 
 .signin {
-    margin-left: 90px;
+    margin-top: -10px;
+    margin-left: auto; /* This will move the sign-in container to the right */
+    margin-right: 90px; /* Adjust the margin-right value as needed */
     align-self: flex-start;
+}
+.image-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-container {
+    text-align: center;
+    flex: 1;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.credits-section {
+    padding: 20px;
+    text-align: center;
+}
+
+header.scrolled {
+    height: 10px; /* Adjust this value as needed */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: #f9f9f9;
+    border: 1px solid black;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.search-container {
+    position: relative;
+}
+.search-container input[type="text"] {
+    padding-left: 30px;
+}
+.search-container::before {
+    content: "\1F50D";
+    position: absolute;
+    left: 10px;
+    top: 7px;
+    font-size: 16px;
+}
+.gif-container {
+    position: relative;
+    width: 100%;
+}
+.gif-container img {
+    width: 100%;
+    height: auto;
+}
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 100px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%); /* This centers the button horizontally */
+}
+
+.button-container a {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust as needed */
+    background-color: transparent; /* Adjust as needed */
+    color: #000000; /* Adjust as needed */
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-box {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 300px;
 }
