@@ -156,3 +156,8 @@ header.scrolled {
     padding: 20px;
     width: 300px;
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+}
