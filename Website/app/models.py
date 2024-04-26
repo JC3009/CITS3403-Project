@@ -1,26 +1,32 @@
-#to be updated for db integration
-class GeneralUser:
-    def __init__(self, username:str, email:str, password:str) -> None:
-        self.username:str = username
-        self.email:str = email
-        self.password:str = password
+from typing import Optional
+import sqlalchemy as sa
+import sqlalchemy.orm as so
+from app import db
 
-    def __str__(self):
+class User(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, unique=True)
+    email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
+    password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
+
+    tradie: so.Mapped['TradieUser'] = so.relationship(back_populates='user')
+
+    def __repr__(self):
         return f"name: {self.username} contact: {self.email}" #str conversion
 
 #to be updated for db integration
-class TradieUser:
-    def __init__(self, username:str, email:str, password:str, trade:str, hourlyRate:float, calloutFee:float, certified:bool=False) -> None:
-        self.username:str = username
-        self.email:str = email
-        self.password:str = password
-        self.trade:str = trade
-        self.hourlyRate:float = hourlyRate
-        self.calloutFee:float = calloutFee
-        self.certified:bool = certified #functionality which allows the user to be considered certified through external process if they provide their valid trade license
+class TradieUser(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    trade: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    hourlyRate: so.Mapped[float] = so.mapped_column(sa.Float)
+    calloutFee: so.Mapped[float] = so.mapped_column(sa.Float)
+    certified: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=0)#functionality which allows the user to be considered certified through external process if they provide their valid trade license
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) #The user account associated with this tradie account
+
+    user: so.Mapped[User] = so.relationship(back_populates='tradie')
 
     def __repr__(self):
-        return f"name: {self.username} trade: {self.trade} contact: {self.email}, Rate = {self.calloutFee} + {self.hourlyRate} per hour." #str conversion
+        return f"user: {self.user_id} does {self.trade}" #str conversion
 
 #to be updated for db integration
 class Location:
@@ -36,7 +42,7 @@ class Location:
     
 #to be updated for db integration
 class JobRequest:
-    def __init__(self, requestor:GeneralUser, job:str, description:str, location:Location, dateCreated:str, timeCreated:str) -> None:
+    def __init__(self, requestor:User, job:str, description:str, location:Location, dateCreated:str, timeCreated:str) -> None:
         self.userName:str = requestor.username
         self.userEmail:str = requestor.email
         self.job:str = job
