@@ -42,3 +42,7 @@ def register():
         flash('Congratulations, you are now registered!')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
+@flaskApp.route('/posting_request', methods=['GET'])
+def posting_request():
+    return render_template('posting_request.html')
