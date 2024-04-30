@@ -26,8 +26,8 @@ header {
     text-align: center;
 }
 #logo.scrolled { 
-    transform: scale(0.5) translateY(-70%); 
-    transition: height 0.3s ease-in-out; 
+    transform: scale(0.5) translateY(-60%);
+    transition: transform 0.3s ease-in-out; 
 }
 
 .logo-container { 
@@ -82,6 +82,11 @@ header.scrolled {
     border-radius: 50%;
     width: 50px;
     height: 50px;
+}
+
+#profile-icon.scrolled { 
+    transform: scale(0.7) translateY(-30%); 
+    transition: transform 0.3s ease-in-out; 
 }
 
 .dropdown-menu {

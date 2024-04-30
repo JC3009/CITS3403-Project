@@ -17,7 +17,7 @@
         </div>
         {% else %}
         <div class="user-profile">
-            <img src="images/placeholderprofile.jpg" alt="User Profile" class="profile-icon">
+            <img id="profile-icon" src="{{ url_for('static', filename='images/placeholderprofile.jpeg') }}" alt="User Profile" class="profile-icon">
             <div class="dropdown-menu">
                 <a href=>Profile</a>
                 <a href=>Settings</a>
