@@ -16,8 +16,13 @@
             <a href="{{ url_for('login') }}">Sign In</a>
         </div>
         {% else %}
-        <div class="signin">
-            <a href="{{ url_for('logout') }}">Sign Out</a>
+        <div class="user-profile">
+            <img src="images/placeholderprofile.jpg" alt="User Profile" class="profile-icon">
+            <div class="dropdown-menu">
+                <a href=>Profile</a>
+                <a href=>Settings</a>
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            </div>
         </div>
         {% endif %}
     </header>
@@ -25,7 +30,9 @@
         <img src="{{ url_for('static', filename='images/Tradie_Digging.gif') }}" alt="GIF">
         <div class="overlay-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mollis mi at lacinia euismod. Sed lacinia mauris nec lacus accumsan pulvinar. Sed lacinia mauris nec lacus accumsan pulvinar.</div>
         <div class="button-container">
+            {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Create Account/ Sign In</a>
+            {% endif %}
         </div>
     </div>
     <section class="image-section">

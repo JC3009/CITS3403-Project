@@ -13,5 +13,9 @@ function scrollFunction() {
   }
 }
 
-// Attach the scroll event listener
+
 window.onscroll = scrollFunction;
+
+document.querySelector('.user-profile').addEventListener('click', function() {
+  document.querySelector('.dropdown-menu').style.display = 'block';
+});
