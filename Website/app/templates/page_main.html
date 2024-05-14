@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+<body class = 'main-page'>
     <header>
         <div class="logo-container">
             <img id="logo" src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Logo">
@@ -36,22 +36,28 @@
         </div>
     </div>
     <section class="image-section">
-        <div class="image-container">
+        <div class="image-container" onclick="onContainerClick()">
             <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 1">
             <p>Text for image 1</p>
         </div>
-        <div class="image-container">
+        <div class="image-container" onclick="onContainerClick()">
             <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 2">
             <p>Text for image 2</p>
         </div>
-        <div class="image-container">
+        <div class="image-container" onclick="onContainerClick()">
             <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 3">
             <p>Text for image 3</p>
         </div>
-        <div class="image-container">
+        <div class="image-container" onclick="onContainerClick()">
             <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 4">
             <p>Text for image 4</p>
         </div>
+        <div id="overlay" onclick="onOverlayClick()">
+            <div class="overlay-content">
+                <textarea readonly>Overlay opened successfully</textarea>
+            </div>
+        </div>
+    </div>
     </section>
     <section class="credits-section">
         <h2>Credits</h2>

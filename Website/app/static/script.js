@@ -23,3 +23,13 @@ window.onscroll = scrollFunction;
 document.querySelector('.user-profile').addEventListener('click', function() {
   document.querySelector('.dropdown-menu').style.display = 'block';
 });
+
+// Opens overlay when container is clicked
+function onContainerClick() {
+  document.getElementById('overlay').style.display = 'block';
+}
+
+// Closes overlay when overlay is clicked
+function onOverlayClick() {
+  document.getElementById('overlay').style.display = 'none';
+}
