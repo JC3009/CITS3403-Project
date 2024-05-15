@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash
 from app import flaskApp
 from app.forms import LoginForm, RegistrationForm
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import db
 from app.models import User
@@ -44,5 +44,6 @@ def register():
     return render_template('register.html', form=form)
 
 @flaskApp.route('/posting_request', methods=['GET'])
+@login_required
 def posting_request():
     return render_template('posting_request.html')
