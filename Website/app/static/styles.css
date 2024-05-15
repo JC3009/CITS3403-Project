@@ -86,7 +86,6 @@ header.scrolled {
     text-align: center;
 }
 
-
 .user-profile {
     position: relative;
     display: inline-block;
@@ -161,15 +160,23 @@ header.scrolled {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-.login-box {
-    border: 1px solid #000;
-    padding: 20px;
-    width: 300px;
+    background: url('images/Login image.png') no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-.login-box h1 {
-    color: #000000; /* Replace with your desired color */
+.login-box {
+  border: 1px solid #000;
+  padding: 20px;
+  width: 327px;
+  border-radius: 20px;
+  border-color: azure;
+  color: azure;
+  background-color: black;
+}
+
+.login-box h2 {
+    color: azure; /* Replace with your desired color */
 }
 
 .error {
