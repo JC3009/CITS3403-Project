@@ -71,6 +71,12 @@ def posting_request():
 @flaskApp.route('/tradie_register', methods=['GET', 'POST'])
 def tradie_register():
     user_id = int(current_user.id)
+    #check if user has tradie account associated with them already
+    existing_tradie = db.session.query(TradieUser).filter_by(user_id=user_id).first()
+    #if they do, redirect them to home page
+    if existing_tradie:
+        flash('You have already registered as a tradie!')
+        return redirect(url_for('home'))
     form = TradieUserForm()
     if form.validate_on_submit():
         tradie = TradieUser(
