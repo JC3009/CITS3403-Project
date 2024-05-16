@@ -56,7 +56,7 @@ class JobRequest(db.Model):
     suburb: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     postcode: so.Mapped[str] = so.mapped_column(sa.String(8), index=True)
     state: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
-
+    tradeRequired: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     datetimeCreated: so.Mapped[datetime] = so.mapped_column(index=True, default=lambda: datetime.now(timezone.utc))
 
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) # The user account associated with this job request
