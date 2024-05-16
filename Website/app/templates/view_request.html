@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Request</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="request-container">
+        <h1>Job Request Details</h1>
+        <div class="job-details">
+            <h2>Job Information</h2>
+            <p><strong>Job:</strong> {{ job_request.job }}</p>
+            <p><strong>Description:</strong> {{ job_request.description }}</p>
+            <p><strong>Trade Required:</strong> {{ job_request.tradeRequired }}</p>
+            <p><strong>Created On:</strong> {{ job_request.datetimeCreated.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        </div>
+        
+        <div class="address-details">
+            <h2>Address</h2>
+            <p><strong>Street Number:</strong> {{ job_request.streetNumber }}</p>
+            <p><strong>Street:</strong> {{ job_request.street }}</p>
+            <p><strong>Suburb:</strong> {{ job_request.suburb }}</p>
+            <p><strong>Postcode:</strong> {{ job_request.postcode }}</p>
+            <p><strong>State:</strong> {{ job_request.state }}</p>
+        </div>
+        
+        <div class="user-details">
+            <h2>Creator Information</h2>
+            <p><strong>Username:</strong> {{ job_request.creator.username }}</p>
+            <p><strong>Email:</strong> {{ job_request.creator.email }}</p>
+        </div>
+        <div class="offers">
+            <h2>Offers</h2>
+            {% for offer in offers %}
+                <div class="offer-details">
+                    <h2>Offerer: {{ offer.tradie.user.username }}</h2>
+                    <p>Offerer email: {{ offer.tradie.user.email }}</p>
+                    <p>Offered Price: ${{ offer.timeEstimate*offer.tradie.hourlyRate + offer.tradie.calloutFee }}</p>
+                    <p>Estimated time: {{ offer.timeEstimate }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <p>To offer to complete this job <a href="{{ url_for('offer_services', request_id=job_request.id) }}">click here!</a></p>
+        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+    </div>
+</body>
+</html>

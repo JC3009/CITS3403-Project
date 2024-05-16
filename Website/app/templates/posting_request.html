@@ -10,43 +10,99 @@
       <img id="logo" src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Logo">
     </div>
   </header>
-  <h1>Create Listing</h1>
+  <div class="flashed_messages">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+  </div>
+  <h1>Create Job Request</h1>
   <div class="container">
+    <form action="{{ url_for('posting_request') }}" method="post">
+      {{ form.hidden_tag() }}
     <div class="centered-content">
       <div class="left-column">
         <div class="form-group">
-          <label for="title">Title:</label><br>
-          <input type="text" id="title" name="title"><br>
+          {{ form.title.label }}<br>
+          {{ form.title(size=32) }}<br>
+          {% for error in form.title.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
         </div>
 
         <div class="form-group">
-          <label for="category">Category:</label><br>
-          <select id="category" name="category">
-            <option value="option1">Carpenter</option>
-            <option value="option2">Plumber</option>
-            <option value="option3">Electrician</option>
-          </select><br>
+          {{ form.description.label }}<br>
+          {{ form.description(size=32) }}<br>
+          {% for error in form.description.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
         </div>
 
         <div class="form-group">
-          <label for="location">Location:</label><br>
-          <input type="text" id="location" name="location">
+          {{ form.tradeRequired.label }}<br>
+          {{ form.tradeRequired() }}<br>
+          {% for error in form.description.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
         </div>
-      </div>
-      <div class="job-description-container">
-        <label for="description">Job Description:</label><br>
-        <textarea id="description" name="description" rows="6"></textarea>
+
+        <div class="form-group">
+          {{ form.streetNumber.label }}<br>
+          {{ form.streetNumber(size=32) }}<br>
+          {% for error in form.streetNumber.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.street.label }}<br>
+          {{ form.street(size=32) }}<br>
+          {% for error in form.street.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.suburb.label }}<br>
+          {{ form.suburb(size=32) }}<br>
+          {% for error in form.suburb.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.postcode.label }}<br>
+          {{ form.postcode(size=32) }}<br>
+          {% for error in form.postcode.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.state.label }}<br>
+          {{ form.state(size=32) }}<br>
+          {% for error in form.state.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>        
       </div>
       <div class="add-images-container">
         <h2>Add Images</h2>
         <div class="image-drop-zone dotted-border" id="imageDropZone">
           Drag and drop images here or click to browse
         </div><br>
+      <div id="createPostContainer">
+        {{ form.submit() }}
+      </div>
+      <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+    </form>
       </div>
     </div>
-  </div>
-  <div id="createPostContainer">
-    <button type="button" id="createPostButton">Create Post</button>
   </div>
 </body>
 </html>

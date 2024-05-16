@@ -1,6 +1,7 @@
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
+from datetime import datetime, date, timezone
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -12,6 +13,7 @@ class User(UserMixin, db.Model):
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
 
     tradie: so.Mapped['TradieUser'] = so.relationship('TradieUser', back_populates='user')
+    jobRequests: so.Mapped['JobRequest'] = so.relationship('JobRequest', back_populates='creator')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -20,62 +22,62 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f"name: {self.username} contact: {self.email}" #str conversion
+        return f"name: {self.username} contact: {self.email}" # str conversion
 
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
 
-#to be updated for db integration
+class Image(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    data: so.Mapped[bytes] = so.mapped_column(sa.LargeBinary)
+
 class TradieUser(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     trade: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     hourlyRate: so.Mapped[float] = so.mapped_column(sa.Float)
     calloutFee: so.Mapped[float] = so.mapped_column(sa.Float)
-    certified: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=0)#functionality which allows the user to be considered certified through external process if they provide their valid trade license
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) #The user account associated with this tradie account
+    certified: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)  # Use False for default value, True for certified tradies
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) # The user account associated with this tradie account
 
     user: so.Mapped[User] = so.relationship('User', back_populates='tradie')
+    jobOffers: so.Mapped['JobOffer'] = so.relationship('JobOffer', back_populates='tradie')
 
     def __repr__(self):
-        return f"user: {self.user_id} does {self.trade}" #str conversion
+        return f"user: {self.user_id} does {self.trade}" # str conversion
 
-#to be updated for db integration
-class Location:
-    def __init__(self, streetNumber:str, street:str, suburb:str, postcode:str, state:str) -> None:
-        self.streetNumber:str = streetNumber
-        self.street:str = street
-        self.suburb:str = suburb
-        self.postcode:str = postcode
-        self.state:str = state
+class JobRequest(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    job: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    description: so.Mapped[str] = so.mapped_column(sa.String(256), index=True)
 
-    def __repr__(self):
-        return f"{self.streetNumber} {self.street}, {self.suburb}, {self.state}, {self.postcode}" #str conversion
-    
-#to be updated for db integration
-class JobRequest:
-    def __init__(self, requestor:User, job:str, description:str, location:Location, dateCreated:str, timeCreated:str) -> None:
-        self.userName:str = requestor.username
-        self.userEmail:str = requestor.email
-        self.job:str = job
-        self.description:str = description
-        self.location:Location = location
-        self.dateCreated:str = dateCreated #date format: dd/mm/yyyy
-        self.timeCreated:str = timeCreated #time format: hh:mm
+    streetNumber: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    street: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    suburb: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    postcode: so.Mapped[str] = so.mapped_column(sa.String(8), index=True)
+    state: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    tradeRequired: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    datetimeCreated: so.Mapped[datetime] = so.mapped_column(index=True, default=lambda: datetime.now(timezone.utc))
+
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) # The user account associated with this job request
+    creator: so.Mapped[User] = so.relationship('User', back_populates='jobRequests')
+
+    jobOffers: so.Mapped['JobOffer'] = so.relationship('JobOffer', back_populates='jobRequest')
 
     def __repr__(self):
-        return f"{self.userName} requested {self.job} at {self.location} on {self.dateCreated} at {self.timeCreated}"
+        return f"user: {self.user_id} requested {self.job} at {self.street} on {self.datetimeCreated}"
 
-#to be updated for db integration
-class JobOffer:
-    def __init__(self, tradie:TradieUser, jobRequest:JobRequest, dateOffered:str, timeOffered:str, timeEstimate:float) -> None:
-        self.tradieName:str = tradie.username
-        self.tradieEmail:str = tradie.email
-        self.jobRequest:JobRequest = jobRequest
-        self.timeEstimate:float = timeEstimate
-        self.costEstimate:float = tradie.calloutFee + tradie.hourlyRate * timeEstimate
-        self.dateOffered:str = dateOffered #date format: dd/mm/yyyy
-        self.timeOffered:str = timeOffered #time format: hh:mm
+class JobOffer(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    timeEstimate: so.Mapped[float] = so.mapped_column(sa.Float) # time in hours
+    dateOffered: so.Mapped[date] = so.mapped_column(sa.Date, index=True)
+
+    jobRequest_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('job_request.id'), index=True)
+    jobRequest: so.Mapped[JobRequest] = so.relationship('JobRequest', back_populates='jobOffers')
+
+    tradie_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('tradie_user.id'), index=True)
+    tradie: so.Mapped[TradieUser] = so.relationship('TradieUser', back_populates='jobOffers')
 
     def __repr__(self):
-        return f"Tradie: {self.tradieName} offered to complete {self.jobRequest.job} for {self.costEstimate} on {self.dateOffered} at {self.timeOffered}"
+        return f"Tradie: {self.tradie.user.username} offered to complete {self.jobRequest.job} on {self.dateOffered} for an estimated {self.timeEstimate} hours"
+   

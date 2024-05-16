@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, SelectField, FloatField, DateField
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, NumberRange
 import sqlalchemy as sa
 from app import db
 from app.models import User
@@ -33,8 +33,32 @@ class RegistrationForm(FlaskForm):
         user = db.session.scalar(sa.select(User).where(
             User.email == email.data))
         if user is not None:
-            raise ValidationError('Email adress already in use.')
+              raise ValidationError('Email adress already in use.')
         
-class Image(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.LargeBinary)
+class JobRequestForm(FlaskForm):
+    trades = [('plumber', 'Plumber'), ('electrician', 'Electrician'), ('carpenter', 'Carpenter')]
+    streetNumber = StringField('Street Number', validators=[DataRequired()])
+    street = StringField('Street', validators=[DataRequired()])
+    suburb = StringField('Suburb', validators=[DataRequired()])
+    postcode = StringField('Postcode', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    tradeRequired = SelectField('Trade Required', choices=trades, validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Post Job Request')
+
+    def validate_tradeRequired(self, tradeRequired):
+        if tradeRequired.data not in ['plumber', 'electrician', 'carpenter']:
+            raise ValidationError('Invalid trade. Please choose from plumber, electrician, carpenter.')
+
+class TradieUserForm(FlaskForm):
+    trades = [('plumber', 'Plumber'), ('electrician', 'Electrician'), ('carpenter', 'Carpenter')]
+    trade = SelectField('Trade', choices=trades, validators=[DataRequired()])
+    hourlyRate = StringField('Hourly Rate', validators=[DataRequired()])
+    calloutFee = StringField('Callout Fee', validators=[DataRequired()])
+    submit = SubmitField('Register as Tradie')
+
+class JobOfferForm(FlaskForm):
+    timeEstimate = FloatField('Time Estimate (hours)', validators=[DataRequired(), NumberRange(min=0, message="Time estimate must be a positive number")])
+    dateOffered = DateField('Date Offered', validators=[DataRequired()], format='%Y-%m-%d')
+    submit = SubmitField('Submit Job Offer')

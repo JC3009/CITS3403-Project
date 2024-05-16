@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Tradie Register</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
@@ -19,41 +19,32 @@
     </div>
     <div class="login-container">
         <div class="login-box">
-            <h1>Register</h1>
-            <form action="{{ url_for('register') }}" method="post">
+            <h1>Register as Tradie</h1>
+            <form action="{{ url_for('tradie_register') }}" method="post">
                 {{ form.hidden_tag() }}
                 <p>
-                    {{ form.username.label }}<br>
-                    {{ form.username(size=32) }}<br>
-                    {% for error in form.username.errors %}
+                    {{ form.trade.label }}<br>
+                    {{ form.trade() }}<br>
+                    {% for error in form.trade.errors %}
                     <span class="error">[{{ error }}]</span>
                     {% endfor %}
                 </p>
                 <p>
-                    {{ form.email.label }}<br>
-                    {{ form.email(size=32) }}<br>
-                    {% for error in form.email.errors %}
+                    {{ form.hourlyRate.label }}<br>
+                    {{ form.hourlyRate(size=32) }}<br>
+                    {% for error in form.hourlyRate.errors %}
                     <span class="error">[{{ error }}]</span>
                     {% endfor %}
                 </p>
                 <p>
-                    {{ form.password.label }}<br>
-                    {{ form.password(size=32) }}<br>
-                    {% for error in form.password.errors %}
-                    <span class="error">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>
-                    {{ form.password2.label }}<br>
-                    {{ form.password2(size=32) }}<br>
-                    {% for error in form.password2.errors %}
+                    {{ form.calloutFee.label }}<br>
+                    {{ form.calloutFee(size=32) }}<br>
+                    {% for error in form.calloutFee.errors %}
                     <span class="error">[{{ error }}]</span>
                     {% endfor %}
                 </p>
                 <p>{{ form.submit() }}</p>
-                
-            <p>Already registered? <a href="{{ url_for('login') }}">Click to Login!</a></p>
-            <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+                <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
             </form>
         </div>
     </div>

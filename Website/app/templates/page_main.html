@@ -8,6 +8,17 @@
         <div class="logo-container">
             <img id="logo" src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Logo">
         </div>
+        <div class="flashed_messages">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
         <div class="title-container">
             <h1>Job Matchmaker</h1>
         </div>
@@ -19,8 +30,8 @@
         <div class="user-profile">
             <img id="profile-icon" src="{{ url_for('static', filename='images/placeholderprofile.jpeg') }}" alt="User Profile" class="profile-icon">
             <div class="dropdown-menu">
-                <a href=>Profile</a>
-                <a href=>Settings</a>
+                <a href="{{ url_for('tradie_register')}}">Register as a Tradie</a>
+                <a href="{{ url_for('posting_request') }}">Create a job request</a>
                 <a href="{{ url_for('logout') }}">Sign Out</a>
             </div>
         </div>
@@ -36,22 +47,14 @@
         </div>
     </div>
     <section class="image-section">
+        {% for job in jobs %}
         <div class="image-container" onclick="onContainerClick()">
-            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 1">
-            <p>Text for image 1</p>
+            <p>Job: {{ job.job }}</p>
+            <p>Postcode: {{ job.postcode }}</p>
+            <p>Trade Required: {{ job.tradeRequired }}</p>
+            <a href="{{ url_for('view_request', request_id=job.id) }}">View Job</a>
         </div>
-        <div class="image-container" onclick="onContainerClick()">
-            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 2">
-            <p>Text for image 2</p>
-        </div>
-        <div class="image-container" onclick="onContainerClick()">
-            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 3">
-            <p>Text for image 3</p>
-        </div>
-        <div class="image-container" onclick="onContainerClick()">
-            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Image 4">
-            <p>Text for image 4</p>
-        </div>
+        {% endfor %}
         <div id="overlay" onclick="onOverlayClick()">
             <div class="overlay-content">
                 <textarea readonly>Overlay opened successfully</textarea>
