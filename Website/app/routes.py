@@ -94,7 +94,8 @@ def tradie_register():
 @flaskApp.route('/view_request/<request_id>')
 def view_request(request_id):
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
-    return render_template('view_request.html', job_request=jobRequest)
+    offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.jobRequest_id == jobRequest.id)).all()
+    return render_template('view_request.html', job_request=jobRequest, offers=offers)
 
 @login_required
 @flaskApp.route('/offer_services/<request_id>', methods=['GET', 'POST'])
