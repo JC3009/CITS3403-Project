@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, SelectField, FloatField, DateField
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, NumberRange
 import sqlalchemy as sa
 from app import db
 from app.models import User
@@ -57,3 +57,8 @@ class TradieUserForm(FlaskForm):
     hourlyRate = StringField('Hourly Rate', validators=[DataRequired()])
     calloutFee = StringField('Callout Fee', validators=[DataRequired()])
     submit = SubmitField('Register as Tradie')
+
+class JobOfferForm(FlaskForm):
+    timeEstimate = FloatField('Time Estimate (hours)', validators=[DataRequired(), NumberRange(min=0, message="Time estimate must be a positive number")])
+    dateOffered = DateField('Date Offered', validators=[DataRequired()], format='%Y-%m-%d')
+    submit = SubmitField('Submit Job Offer')
