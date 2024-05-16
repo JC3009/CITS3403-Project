@@ -35,6 +35,7 @@
             {% for offer in offers %}
                 <div class="offer-details">
                     <h2>Offerer: {{ offer.tradie.user.username }}</h2>
+                    <p>Offerer email: {{ offer.tradie.user.email }}</p>
                     <p>Offered Price: ${{ offer.timeEstimate*offer.tradie.hourlyRate + offer.tradie.calloutFee }}</p>
                     <p>Estimated time: {{ offer.timeEstimate }}</p>
                 </div>
