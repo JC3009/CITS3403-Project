@@ -1,8 +1,8 @@
-"""+Image,Location,JobRequest,JobOffer
+"""empty message
 
-Revision ID: 7737f74f111d
+Revision ID: 04a02025651a
 Revises: fb5012cf8c2d
-Create Date: 2024-05-16 10:12:03.935799
+Create Date: 2024-05-16 11:19:30.875253
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7737f74f111d'
+revision = '04a02025651a'
 down_revision = 'fb5012cf8c2d'
 branch_labels = None
 depends_on = None
@@ -23,30 +23,17 @@ def upgrade():
     sa.Column('data', sa.LargeBinary(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('location',
+    op.create_table('job_request',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('job', sa.String(length=64), nullable=False),
+    sa.Column('description', sa.String(length=256), nullable=False),
     sa.Column('streetNumber', sa.String(length=64), nullable=False),
     sa.Column('street', sa.String(length=64), nullable=False),
     sa.Column('suburb', sa.String(length=64), nullable=False),
     sa.Column('postcode', sa.String(length=8), nullable=False),
     sa.Column('state', sa.String(length=64), nullable=False),
-    sa.PrimaryKeyConstraint('id')
-    )
-    with op.batch_alter_table('location', schema=None) as batch_op:
-        batch_op.create_index(batch_op.f('ix_location_postcode'), ['postcode'], unique=False)
-        batch_op.create_index(batch_op.f('ix_location_state'), ['state'], unique=False)
-        batch_op.create_index(batch_op.f('ix_location_street'), ['street'], unique=False)
-        batch_op.create_index(batch_op.f('ix_location_streetNumber'), ['streetNumber'], unique=False)
-        batch_op.create_index(batch_op.f('ix_location_suburb'), ['suburb'], unique=False)
-
-    op.create_table('job_request',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('job', sa.String(length=64), nullable=False),
-    sa.Column('description', sa.String(length=256), nullable=False),
     sa.Column('datetimeCreated', sa.DateTime(), nullable=False),
-    sa.Column('location_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['location_id'], ['location.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -54,7 +41,11 @@ def upgrade():
         batch_op.create_index(batch_op.f('ix_job_request_datetimeCreated'), ['datetimeCreated'], unique=False)
         batch_op.create_index(batch_op.f('ix_job_request_description'), ['description'], unique=False)
         batch_op.create_index(batch_op.f('ix_job_request_job'), ['job'], unique=False)
-        batch_op.create_index(batch_op.f('ix_job_request_location_id'), ['location_id'], unique=False)
+        batch_op.create_index(batch_op.f('ix_job_request_postcode'), ['postcode'], unique=False)
+        batch_op.create_index(batch_op.f('ix_job_request_state'), ['state'], unique=False)
+        batch_op.create_index(batch_op.f('ix_job_request_street'), ['street'], unique=False)
+        batch_op.create_index(batch_op.f('ix_job_request_streetNumber'), ['streetNumber'], unique=False)
+        batch_op.create_index(batch_op.f('ix_job_request_suburb'), ['suburb'], unique=False)
         batch_op.create_index(batch_op.f('ix_job_request_user_id'), ['user_id'], unique=False)
 
     op.create_table('job_offer',
@@ -85,19 +76,15 @@ def downgrade():
     op.drop_table('job_offer')
     with op.batch_alter_table('job_request', schema=None) as batch_op:
         batch_op.drop_index(batch_op.f('ix_job_request_user_id'))
-        batch_op.drop_index(batch_op.f('ix_job_request_location_id'))
+        batch_op.drop_index(batch_op.f('ix_job_request_suburb'))
+        batch_op.drop_index(batch_op.f('ix_job_request_streetNumber'))
+        batch_op.drop_index(batch_op.f('ix_job_request_street'))
+        batch_op.drop_index(batch_op.f('ix_job_request_state'))
+        batch_op.drop_index(batch_op.f('ix_job_request_postcode'))
         batch_op.drop_index(batch_op.f('ix_job_request_job'))
         batch_op.drop_index(batch_op.f('ix_job_request_description'))
         batch_op.drop_index(batch_op.f('ix_job_request_datetimeCreated'))
 
     op.drop_table('job_request')
-    with op.batch_alter_table('location', schema=None) as batch_op:
-        batch_op.drop_index(batch_op.f('ix_location_suburb'))
-        batch_op.drop_index(batch_op.f('ix_location_streetNumber'))
-        batch_op.drop_index(batch_op.f('ix_location_street'))
-        batch_op.drop_index(batch_op.f('ix_location_state'))
-        batch_op.drop_index(batch_op.f('ix_location_postcode'))
-
-    op.drop_table('location')
     op.drop_table('image')
     # ### end Alembic commands ###

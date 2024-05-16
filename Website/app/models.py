@@ -46,27 +46,18 @@ class TradieUser(db.Model):
     def __repr__(self):
         return f"user: {self.user_id} does {self.trade}" # str conversion
 
-class Location(db.Model):
+class JobRequest(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    job: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
+    description: so.Mapped[str] = so.mapped_column(sa.String(256), index=True)
+
     streetNumber: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     street: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     suburb: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     postcode: so.Mapped[str] = so.mapped_column(sa.String(8), index=True)
     state: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
 
-    jobRequests: so.Mapped['JobRequest'] = so.relationship('JobRequest', back_populates='Location')
-
-    def __repr__(self):
-        return f"{self.streetNumber} {self.street}, {self.suburb}, {self.state}, {self.postcode}" # str conversion
-
-class JobRequest(db.Model):
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    job: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
-    description: so.Mapped[str] = so.mapped_column(sa.String(256), index=True)
     datetimeCreated: so.Mapped[datetime] = so.mapped_column(index=True, default=lambda: datetime.now(timezone.utc))
-
-    location_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('location.id'), index=True) # The location the job is to be completed at
-    location: so.Mapped[Location] = so.relationship('location', back_populates='jobRequests')
 
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) # The user account associated with this job request
     creator: so.Mapped[User] = so.relationship('User', back_populates='jobRequests')
