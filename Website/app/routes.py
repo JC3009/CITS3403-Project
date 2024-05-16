@@ -8,8 +8,8 @@ from app.models import User, JobRequest, TradieUser
 
 @flaskApp.route('/')
 def home():
-    #recent_jobs = db.session.scalars(sa.select(JobRequest).order_by(JobRequest.timestamp.desc()).limit(4))
-    return render_template('page_main.html')
+    recent_jobs = db.session.scalars(sa.select(JobRequest).order_by(JobRequest.datetimeCreated.desc()).limit(4))
+    return render_template('page_main.html', jobs=recent_jobs)
 
 @flaskApp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -89,3 +89,9 @@ def tradie_register():
         flash(f'Tradie details registered!')
         return redirect(url_for('home'))
     return render_template('tradie_register.html', form=form)
+
+@login_required
+@flaskApp.route('/view_requests/<request_id>')
+def view_requests(request_id):
+    jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
+    return render_template('view_request.html', job_request=jobRequest)
