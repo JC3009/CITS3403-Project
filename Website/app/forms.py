@@ -34,3 +34,13 @@ class RegistrationForm(FlaskForm):
             User.email == email.data))
         if user is not None:
               raise ValidationError('Email adress already in use.')
+        
+class JobRequestForm(FlaskForm):
+    streetNumber = StringField('Street Number', validators=[DataRequired()])
+    street = StringField('Street', validators=[DataRequired()])
+    suburb = StringField('Suburb', validators=[DataRequired()])
+    postcode = StringField('Postcode', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Post Job Request')

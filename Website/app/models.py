@@ -65,7 +65,7 @@ class JobRequest(db.Model):
     jobOffers: so.Mapped['JobOffer'] = so.relationship('JobOffer', back_populates='jobRequest')
 
     def __repr__(self):
-        return f"{self.creator.username} requested {self.job} at {self.location} on {self.datetimeCreated}"
+        return f"user: {self.user_id} requested {self.job} at {self.street} on {self.datetimeCreated}"
 
 class JobOffer(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
