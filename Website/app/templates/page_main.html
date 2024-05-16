@@ -30,8 +30,8 @@
         <div class="user-profile">
             <img id="profile-icon" src="{{ url_for('static', filename='images/placeholderprofile.jpeg') }}" alt="User Profile" class="profile-icon">
             <div class="dropdown-menu">
-                <a href=>Profile</a>
-                <a href=>Settings</a>
+                <a href="{{ url_for('tradie_register')}}">Register as a Tradie</a>
+                <a href="{{ url_for('posting_request') }}">Create a job request</a>
                 <a href="{{ url_for('logout') }}">Sign Out</a>
             </div>
         </div>
