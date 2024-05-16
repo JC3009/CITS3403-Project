@@ -101,6 +101,7 @@ def view_request(request_id):
 @flaskApp.route('/offer_services/<request_id>', methods=['GET', 'POST'])
 def offer_services(request_id):
     tradie_user_id = int(current_user.id)
+    tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
     #check if user is a tradie
     existing_tradie = db.session.query(TradieUser).filter_by(user_id=tradie_user_id).first()
     #if they are not, redirect them to home page
@@ -118,7 +119,7 @@ def offer_services(request_id):
             timeEstimate=form.timeEstimate.data,
             dateOffered=form.dateOffered.data,
             jobRequest_id=jobRequest.id,
-            tradie_id=tradie_user_id
+            tradie_id=tradie_tradie_id
         )
         db.session.add(job_offer)
         db.session.commit()
