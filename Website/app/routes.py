@@ -57,7 +57,8 @@ def posting_request():
             suburb=form.suburb.data, 
             postcode=form.postcode.data, 
             state=form.state.data,
-            user_id=user_id, 
+            user_id=user_id,
+            tradeRequired=form.tradeRequired.data, 
             job=form.title.data, 
             description=form.description.data)
         db.session.add(jobRequest)
