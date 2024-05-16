@@ -1,10 +1,10 @@
 from flask import render_template, redirect, url_for, flash
 from app import flaskApp
-from app.forms import LoginForm, RegistrationForm, JobRequestForm
+from app.forms import LoginForm, RegistrationForm, JobRequestForm, TradieUserForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import db
-from app.models import User, JobRequest
+from app.models import User, JobRequest, TradieUser
 
 @flaskApp.route('/')
 def home():
@@ -65,3 +65,20 @@ def posting_request():
         flash(f'Job request posted!')
         return redirect(url_for('home'))
     return render_template('posting_request.html', form=form)
+
+@login_required
+@flaskApp.route('/tradie_register', methods=['GET', 'POST'])
+def tradie_register():
+    user_id = int(current_user.id)
+    form = TradieUserForm()
+    if form.validate_on_submit():
+        tradie = TradieUser(
+            user_id=user_id, 
+            trade=form.trade.data, 
+            hourlyRate=form.hourlyRate.data, 
+            calloutFee=form.calloutFee.data)
+        db.session.add(tradie)
+        db.session.commit()
+        flash(f'Tradie details registered!')
+        return redirect(url_for('home'))
+    return render_template('tradie_register.html', form=form)

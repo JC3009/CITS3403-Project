@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 from app import db
@@ -44,3 +44,10 @@ class JobRequestForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Post Job Request')
+
+class TradieUserForm(FlaskForm):
+    trades = [('plumber', 'Plumber'), ('electrician', 'Electrician'), ('carpenter', 'Carpenter')]
+    trade = trade = SelectField('Trade', choices=trades, validators=[DataRequired()])
+    hourlyRate = StringField('Hourly Rate', validators=[DataRequired()])
+    calloutFee = StringField('Callout Fee', validators=[DataRequired()])
+    submit = SubmitField('Register as Tradie')

@@ -37,7 +37,7 @@ class TradieUser(db.Model):
     trade: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     hourlyRate: so.Mapped[float] = so.mapped_column(sa.Float)
     calloutFee: so.Mapped[float] = so.mapped_column(sa.Float)
-    certified: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)  # Use False for default value
+    certified: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)  # Use False for default value, True for certified tradies
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'), index=True) # The user account associated with this tradie account
 
     user: so.Mapped[User] = so.relationship('User', back_populates='tradie')
