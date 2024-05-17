@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Request History</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <form action="{{ url_for('search_requests') }}" method="post">
+        <div class="search-container">
+            <h1>Search for Job Requests</h1>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.tradeFilter.label }}<br>
+                {{ form.tradeFilter() }}<br>
+                {% for error in form.tradeFilter.errors %}
+                <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                {{ form.stateFilter.label }}<br>
+                {{ form.stateFilter() }}<br>
+                {% for error in form.stateFilter.errors %}
+                <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                {{ form.postcodeFilter.label }}<br>
+                {{ form.postcodeFilter(size=32) }}<br>
+                {% for error in form.postcodeFilter.errors %}
+                <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                {{ form.order.label }}<br>
+                {{ form.order() }}<br>
+                {% for error in form.order.errors %}
+                <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                {{ form.submit() }}
+            </div>
+        </div>
+    </form>
+    {% if requests != None %}            
+    <div class="request-container">
+        <h1>Job Request History</h1>
+        {% for job_request in requests %}
+        <div class="job-request">
+            <p>Request {{ job_request.id }} <a href="{{ url_for('view_request', request_id=job_request.id)}}">{{ job_request.job }}</a></p>
+            <p>Created On: {{ job_request.datetimeCreated.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            <p>Trade Required: {{ job_request.tradeRequired }}</p>
+            <p>State: {{ job_request.state }}</p>
+            <p>Postcode: {{ job_request.postcode }}</p>
+        </div>
+        {% endfor %}
+    {% endif %}
+        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+    </div>
+</body>
+</html>
