@@ -46,6 +46,7 @@
             {% endif %}
         </div>
     </div>
+    {% if not current_user.is_anonymous %}
     <section class="image-section">
         {% for job in jobs %}
         <div class="image-container" onclick="onContainerClick()">
@@ -62,6 +63,7 @@
         </div>
     </div>
     </section>
+    {% endif %}
     <section class="credits-section">
         <h2>Credits</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
