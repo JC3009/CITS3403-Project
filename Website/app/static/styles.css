@@ -387,6 +387,7 @@ body.request-page {
   height: 100%;
   margin: 0 auto;
 }
+
 .section {
   background-color: rgba(237, 136, 227, 0.934);
   padding: 10px;
@@ -429,4 +430,20 @@ label[for="dateOffered"] {
 
 label[for="response"] {
   font-size: 30px;
+}
+
+/*search requests*/
+
+.search-container {
+  background-color: rgba(237, 136, 227, 0.934);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  color: azure;
+}
+
+/*request-history*/
+.request-container .job-request {
+  color: azure;
 }

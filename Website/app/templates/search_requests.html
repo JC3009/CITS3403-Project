@@ -6,12 +6,12 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="search-container">
     <form action="{{ url_for('search_requests') }}" method="post">
-        <div class="search-container">
-            <h1>Search for Job Requests</h1>
+            <h1 style="text-align: center;">Search for Job Requests</h1>
             {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.tradeFilter.label }}<br>
+                <h2>{{ form.tradeFilter.label }}</h2><br>
                 {{ form.tradeFilter() }}<br>
                 {% for error in form.tradeFilter.errors %}
                 <span class="error">[{{ error }}]</span>
@@ -45,7 +45,6 @@
             <div class="form-group">
                 {{ form.submit() }}
             </div>
-        </div>
     </form>
     {% if requests != None %}            
     <div class="request-container">
@@ -61,6 +60,7 @@
         {% endfor %}
     {% endif %}
         <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+    </div>
     </div>
 </body>
 </html>
