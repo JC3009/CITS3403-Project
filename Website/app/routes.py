@@ -153,3 +153,14 @@ def request_history():
     user_id = int(current_user.id)
     user_requests = db.session.scalars(sa.select(JobRequest).where(JobRequest.user_id == user_id)).all()
     return render_template('request_history.html', requests=user_requests)
+
+@login_required
+@flaskApp.route('/offer_history')
+def offer_history():
+    tradie_user_id = int(current_user.id)
+    tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
+    if not tradie_tradie_id:
+        flash('Only tradies can view their offer history!')
+        return redirect(url_for('home'))
+    user_offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.tradie_id == tradie_tradie_id)).all()
+    return render_template('offer_history.html', offers=user_offers)

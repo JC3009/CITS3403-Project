@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Offer History</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="offer-container">
+        <h1>Job Offer History</h1>
+        {% for job_offer in offers %}
+        <div class="job-offer">
+            <p>Offer {{ job_offer.id }} made on Job: <a href="{{ url_for('view_request', request_id=job_offer.jobRequest_id)}}">{{ job_offer.jobRequest.job }}</a></p>
+            <p>Offer Accepted Status: {{ job_offer.acceptedStatus }}</p>
+        </div>
+        {% endfor %}
+        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+    </div>
+</body>
+</html>
