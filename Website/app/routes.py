@@ -146,3 +146,10 @@ def respond_to_offer(offer_id):
             flash('Job Offer has been accepted!')
             return redirect(url_for('home'))
     return render_template('respond_to_offer.html', offer=job_offer, form=form)
+
+@login_required
+@flaskApp.route('/request_history')
+def request_history():
+    user_id = int(current_user.id)
+    user_requests = db.session.scalars(sa.select(JobRequest).where(JobRequest.user_id == user_id)).all()
+    return render_template('request_history.html', requests=user_requests)
