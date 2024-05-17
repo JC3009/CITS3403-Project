@@ -62,3 +62,14 @@ class JobOfferForm(FlaskForm):
     timeEstimate = FloatField('Time Estimate (hours)', validators=[DataRequired(), NumberRange(min=0, message="Time estimate must be a positive number")])
     dateOffered = DateField('Date Offered', validators=[DataRequired()], format='%Y-%m-%d')
     submit = SubmitField('Submit Job Offer')
+
+class RespondToOfferForm(FlaskForm):
+    response = SelectField('Response', choices=[('accept', 'Accept'), ('reject', 'Reject')], validators=[DataRequired()])
+    submit = SubmitField('Respond to Offer')
+
+class RequestSearchForm(FlaskForm):
+    tradeFilter = SelectField('Trade', choices=[('all', 'All'), ('plumber', 'Plumber'), ('electrician', 'Electrician'), ('carpenter', 'Carpenter')], validators=[DataRequired()])
+    stateFilter = SelectField('State', choices=[('all', 'All'), ('NSW', 'NSW'), ('VIC', 'VIC'), ('QLD', 'QLD'), ('SA', 'SA'), ('WA', 'WA'), ('TAS', 'TAS'), ('NT', 'NT'), ('ACT', 'ACT')], validators=[DataRequired()])
+    postcodeFilter = StringField('Postcode')
+    order = SelectField('Order by', choices=[('datetimeCreated', 'Date Created'), ('job', 'Job'), ('state', 'State'), ('postcode', 'Postcode')], validators=[DataRequired()])
+    submit = SubmitField('Search')

@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash
 from app import flaskApp
-from app.forms import LoginForm, RegistrationForm, JobRequestForm, TradieUserForm, JobOfferForm
+from app.forms import LoginForm, RegistrationForm, JobRequestForm, TradieUserForm, JobOfferForm, RespondToOfferForm, RequestSearchForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import db
@@ -126,3 +126,71 @@ def offer_services(request_id):
         flash('Job Offer has been created!')
         return redirect(url_for('home'))
     return render_template('offer_services.html', job_request=jobRequest, form=form)
+
+@login_required
+@flaskApp.route('/respond_to_offer/<offer_id>', methods=['GET','POST'])
+def respond_to_offer(offer_id):
+    form = RespondToOfferForm()
+    job_offer = db.session.scalar(sa.select(JobOffer).where(JobOffer.id == int(offer_id)))
+    #check if user is the creator of the job request associated with the offer
+    if job_offer.jobRequest.user_id != int(current_user.id):
+        flash('You are not authorized to respond to this offer!')
+        return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
+    if job_offer.acceptedStatus == True:
+        flash('You have already accepted this offer!')
+        return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
+    if form.validate_on_submit():
+        if form.response.data == 'accept':
+            job_offer.acceptedStatus = True
+            db.session.commit()
+            flash('Job Offer has been accepted!')
+            return redirect(url_for('home'))
+        elif form.response.data == 'reject':
+            job_offer.acceptedStatus = True
+            db.session.commit()
+            flash('Job Offer has been rejected!')
+            return redirect(url_for('home'))
+
+    return render_template('respond_to_offer.html', offer=job_offer, form=form)
+
+@login_required
+@flaskApp.route('/request_history')
+def request_history():
+    user_id = int(current_user.id)
+    user_requests = db.session.scalars(sa.select(JobRequest).where(JobRequest.user_id == user_id)).all()
+    return render_template('request_history.html', requests=user_requests)
+
+@login_required
+@flaskApp.route('/offer_history')
+def offer_history():
+    tradie_user_id = int(current_user.id)
+    tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
+    if not tradie_tradie_id:
+        flash('Only tradies can view their offer history!')
+        return redirect(url_for('home'))
+    user_offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.tradie_id == tradie_tradie_id)).all()
+    return render_template('offer_history.html', offers=user_offers)
+
+@login_required
+@flaskApp.route('/search_requests', methods=['GET', 'POST'])
+def search_requests():
+    form = RequestSearchForm()
+    if form.validate_on_submit():
+        search = db.session.query(JobRequest)
+        if form.tradeFilter.data != 'all':
+            search = search.filter(JobRequest.tradeRequired == form.tradeFilter.data)
+        if form.stateFilter.data != 'all':
+            search = search.filter(JobRequest.state == form.stateFilter.data)
+        if form.postcodeFilter.data != '':
+            search = search.filter(JobRequest.postcode == form.postcodeFilter.data)
+        if form.order.data == 'datetimeCreated':
+            search = search.order_by(JobRequest.datetimeCreated.desc())
+        elif form.order.data == 'job':
+            search = search.order_by(JobRequest.job)
+        elif form.order.data == 'state':
+            search = search.order_by(JobRequest.state)
+        elif form.order.data == 'postcode':
+            search = search.order_by(JobRequest.postcode)
+        search_results = search.all()
+        return render_template('search_requests.html', form=form, requests=search_results)
+    return render_template('search_requests.html', form=form, requests=None)
