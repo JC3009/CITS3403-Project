@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash
 from app import flaskApp
-from app.forms import LoginForm, RegistrationForm, JobRequestForm, TradieUserForm, JobOfferForm
+from app.forms import LoginForm, RegistrationForm, JobRequestForm, TradieUserForm, JobOfferForm, RespondToOfferForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import db
@@ -126,3 +126,23 @@ def offer_services(request_id):
         flash('Job Offer has been created!')
         return redirect(url_for('home'))
     return render_template('offer_services.html', job_request=jobRequest, form=form)
+
+@login_required
+@flaskApp.route('/respond_to_offer/<offer_id>', methods=['GET','POST'])
+def respond_to_offer(offer_id):
+    form = RespondToOfferForm()
+    job_offer = db.session.scalar(sa.select(JobOffer).where(JobOffer.id == int(offer_id)))
+    #check if user is the creator of the job request associated with the offer
+    if job_offer.jobRequest.user_id != int(current_user.id):
+        flash('You are not authorized to respond to this offer!')
+        return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
+    if job_offer.acceptedStatus == True:
+        flash('You have already accepted this offer!')
+        return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
+    if form.validate_on_submit():
+        if form.response.data == 'accept':
+            job_offer.acceptedStatus = True
+            db.session.commit()
+            flash('Job Offer has been accepted!')
+            return redirect(url_for('home'))
+    return render_template('respond_to_offer.html', offer=job_offer, form=form)

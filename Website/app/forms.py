@@ -62,3 +62,7 @@ class JobOfferForm(FlaskForm):
     timeEstimate = FloatField('Time Estimate (hours)', validators=[DataRequired(), NumberRange(min=0, message="Time estimate must be a positive number")])
     dateOffered = DateField('Date Offered', validators=[DataRequired()], format='%Y-%m-%d')
     submit = SubmitField('Submit Job Offer')
+
+class RespondToOfferForm(FlaskForm):
+    response = SelectField('Response', choices=[('accept', 'Accept'), ('reject', 'Reject')], validators=[DataRequired()])
+    submit = SubmitField('Respond to Offer')
