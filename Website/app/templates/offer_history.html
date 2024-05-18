@@ -11,7 +11,7 @@
         <h1>Job Offer History</h1>
         {% for job_offer in offers %}
         <div class="job-offer">
-            <p>Offer {{ job_offer.id }} made on Job: <a href="{{ url_for('view_request', request_id=job_offer.jobRequest_id)}}">{{ job_offer.jobRequest.job }}</a></p>
+            <p>Offer {{ job_offer.id }} made on Job: <a href="{{ url_for('main.view_request', request_id=job_offer.jobRequest_id)}}">{{ job_offer.jobRequest.job }}</a></p>
             {% if job_offer.acceptedStatus == True %}
             <p>This offer has been accepted</p>
             {% elif job_offer.rejectedStatus == True %}
@@ -21,7 +21,7 @@
             {% endif %}
         </div>
         {% endfor %}
-        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+        <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
     </div>
 </body>
 </html>

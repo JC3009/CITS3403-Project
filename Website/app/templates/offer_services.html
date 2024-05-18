@@ -43,7 +43,7 @@
         <div class="row mt-3">
             <div class="col md-12">
                 <div class="section form-fill">
-                    <form method="POST" action="{{ url_for('offer_services', request_id = job_request.id) }}">
+                    <form method="POST" action="{{ url_for('main.offer_services', request_id = job_request.id) }}">
                         {{ form.hidden_tag() }}
                         <div class="form-group">
                             {{ form.timeEstimate.label }}<br>
@@ -62,7 +62,7 @@
                         <div class="form-group">
                             {{ form.submit() }}
                         </div>
-                    <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+                    <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
                 </div>
             </div>
         </div>

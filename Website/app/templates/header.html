@@ -18,18 +18,18 @@
     </div>
     {% if current_user.is_anonymous %}
     <div class="signin">
-        <a href="{{ url_for('login') }}">Sign In</a>
+        <a href="{{ url_for('main.login') }}">Sign In</a>
     </div>
     {% else %}
     <div class="user-profile">
         <img id="profile-icon" src="{{ url_for('static', filename='images/placeholderprofile.jpeg') }}" alt="User Profile" class="profile-icon">
         <div class="dropdown-menu">
-            <a href="{{ url_for('tradie_register')}}">Register as a Tradie</a>
-            <a href="{{ url_for('posting_request') }}">Create a job request</a>
-            <a href="{{ url_for('logout') }}">Sign Out</a>
-            <a href="{{ url_for('request_history') }}">Request History</a>
-            <a href="{{ url_for('offer_history') }}">Offer History</a>
-            <a href="{{ url_for('home') }}">Return Home</a>
+            <a href="{{ url_for('main.tradie_register')}}">Register as a Tradie</a>
+            <a href="{{ url_for('main.posting_request') }}">Create a job request</a>
+            <a href="{{ url_for('main.logout') }}">Sign Out</a>
+            <a href="{{ url_for('main.request_history') }}">Request History</a>
+            <a href="{{ url_for('main.offer_history') }}">Offer History</a>
+            <a href="{{ url_for('main.home') }}">Return Home</a>
         </div>
     </div>
     {% endif %}

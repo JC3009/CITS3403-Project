@@ -11,10 +11,10 @@
         <h1>Job Request History</h1>
         {% for job_request in requests %}
         <div class="job-request">
-            <p>Request {{ job_request.id }} <a href="{{ url_for('view_request', request_id=job_request.id)}}">{{ job_request.job }}</a></p>
+            <p>Request {{ job_request.id }} <a href="{{ url_for('main.view_request', request_id=job_request.id)}}">{{ job_request.job }}</a></p>
         
         {% endfor %}
-        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+        <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
     </div>
     </div>
 </body>

@@ -10,7 +10,7 @@
         <div class="overlay-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mollis mi at lacinia euismod. Sed lacinia mauris nec lacus accumsan pulvinar. Sed lacinia mauris nec lacus accumsan pulvinar.</div>
         <div class="button-container">
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Create Account/ Sign In</a>
+            <a href="{{ url_for('main.login') }}">Create Account/ Sign In</a>
             {% endif %}
         </div>
     </div>
@@ -21,7 +21,7 @@
             <p>Job: {{ job.job }}</p>
             <p>Postcode: {{ job.postcode }}</p>
             <p>Trade Required: {{ job.tradeRequired }}</p>
-            <a href="{{ url_for('view_request', request_id=job.id) }}">View Job</a>
+            <a href="{{ url_for('main.view_request', request_id=job.id) }}">View Job</a>
         </div>
         {% endfor %}
         <div id="overlay" onclick="onOverlayClick()">

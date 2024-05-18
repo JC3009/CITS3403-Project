@@ -8,7 +8,7 @@
 <body>
     {% include 'header.html' %}
     <div class="search-container">
-    <form action="{{ url_for('search_requests') }}" method="post">
+    <form action="{{ url_for('main.search_requests') }}" method="post">
             <h1 style="text-align: center;">Search for Job Requests</h1>
             {{ form.hidden_tag() }}
             <div class="form-group">
@@ -52,7 +52,7 @@
         <h1>Job Request History</h1>
         {% for job_request in requests %}
         <div class="job-request">
-            <p>Request {{ job_request.id }} <a href="{{ url_for('view_request', request_id=job_request.id)}}">{{ job_request.job }}</a></p>
+            <p>Request {{ job_request.id }} <a href="{{ url_for('main.view_request', request_id=job_request.id)}}">{{ job_request.job }}</a></p>
             <p>Created On: {{ job_request.datetimeCreated.strftime('%Y-%m-%d %H:%M:%S') }}</p>
             <p>Trade Required: {{ job_request.tradeRequired }}</p>
             <p>State: {{ job_request.state }}</p>
@@ -60,7 +60,7 @@
         </div>
         {% endfor %}
     {% endif %}
-        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+        <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
     </div>
     </div>
 </body>
