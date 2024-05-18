@@ -139,14 +139,17 @@ def respond_to_offer(offer_id):
     if job_offer.acceptedStatus == True:
         flash('You have already accepted this offer!')
         return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
-    if form.validate_on_submit():
+    if job_offer.rejectedStatus == True:
+        flash('You have already rejected this offer!')
+        return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
+    if form.validate_on_submit() and not (job_offer.acceptedStatus or job_offer.rejectedStatus):
         if form.response.data == 'accept':
             job_offer.acceptedStatus = True
             db.session.commit()
             flash('Job Offer has been accepted!')
             return redirect(url_for('home'))
         elif form.response.data == 'reject':
-            job_offer.acceptedStatus = True
+            job_offer.rejectedStatus = True
             db.session.commit()
             flash('Job Offer has been rejected!')
             return redirect(url_for('home'))
@@ -194,3 +197,28 @@ def search_requests():
         search_results = search.all()
         return render_template('search_requests.html', form=form, requests=search_results)
     return render_template('search_requests.html', form=form, requests=None)
+
+@flaskApp.route('/edit_request/<request_id>', methods=['GET', 'POST'])
+@login_required
+def edit_request(request_id):
+    user_id = int(current_user.id)
+    jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
+    if jobRequest.user_id != user_id:
+        flash('You are not authorized to edit this request!')
+        return redirect(url_for('view_request', request_id=request_id))
+    form = JobRequestForm()
+    if form.validate_on_submit() and jobRequest.user_id == user_id:
+        updated_request_data = {
+            'streetNumber':form.streetNumber.data,
+            'street':form.street.data,
+            'suburb':form.suburb.data,
+            'postcode':form.postcode.data,
+            'state':form.state.data,
+            'tradeRequired':form.tradeRequired.data,
+            'job':form.title.data,
+            'description':form.description.data
+        }
+        db.session.query(JobRequest).filter(JobRequest.id == request_id).update(updated_request_data)
+        flash('Job Request has been updated!')
+        return redirect(url_for('view_request', request_id=request_id))
+    return render_template('edit_request.html', form=form)

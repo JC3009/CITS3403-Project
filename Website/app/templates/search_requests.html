@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    {% include 'header.html' %}
     <div class="search-container">
     <form action="{{ url_for('search_requests') }}" method="post">
             <h1 style="text-align: center;">Search for Job Requests</h1>
