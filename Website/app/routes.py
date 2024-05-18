@@ -139,14 +139,17 @@ def respond_to_offer(offer_id):
     if job_offer.acceptedStatus == True:
         flash('You have already accepted this offer!')
         return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
-    if form.validate_on_submit():
+    if job_offer.rejectedStatus == True:
+        flash('You have already rejected this offer!')
+        return redirect(url_for('view_request', request_id=job_offer.jobRequest.id))
+    if form.validate_on_submit() and not (job_offer.acceptedStatus or job_offer.rejectedStatus):
         if form.response.data == 'accept':
             job_offer.acceptedStatus = True
             db.session.commit()
             flash('Job Offer has been accepted!')
             return redirect(url_for('home'))
         elif form.response.data == 'reject':
-            job_offer.acceptedStatus = True
+            job_offer.rejectedStatus = True
             db.session.commit()
             flash('Job Offer has been rejected!')
             return redirect(url_for('home'))
