@@ -41,11 +41,15 @@ class JobRequestForm(FlaskForm):
     street = StringField('Street', validators=[DataRequired()])
     suburb = StringField('Suburb', validators=[DataRequired()])
     postcode = StringField('Postcode', validators=[DataRequired()])
-    state = StringField('State', validators=[DataRequired()])
+    state = SelectField('State', choices=[('NSW', 'NSW'), ('VIC', 'VIC'), ('QLD', 'QLD'), ('SA', 'SA'), ('WA', 'WA'), ('TAS', 'TAS'), ('NT', 'NT'), ('ACT', 'ACT')], validators=[DataRequired()])
     tradeRequired = SelectField('Trade Required', choices=trades, validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Post Job Request')
+
+    def validate_postcode(self, postcode):
+        if len(postcode.data) != 4 or not postcode.data.isdigit():
+            raise ValidationError('Invalid postcode. Postcode must be a 4 digit number.')
 
     def validate_tradeRequired(self, tradeRequired):
         if tradeRequired.data not in ['plumber', 'electrician', 'carpenter']:
