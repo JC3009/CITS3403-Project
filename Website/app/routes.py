@@ -45,8 +45,9 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-@login_required
+
 @flaskApp.route('/posting_request', methods=['GET', 'POST'])
+@login_required
 def posting_request():
     user_id = int(current_user.id)
     form = JobRequestForm()
@@ -67,8 +68,9 @@ def posting_request():
         return redirect(url_for('home'))
     return render_template('posting_request.html', form=form)
 
-@login_required
+
 @flaskApp.route('/tradie_register', methods=['GET', 'POST'])
+@login_required
 def tradie_register():
     user_id = int(current_user.id)
     #check if user has tradie account associated with them already
@@ -90,15 +92,17 @@ def tradie_register():
         return redirect(url_for('home'))
     return render_template('tradie_register.html', form=form)
 
-@login_required
+
 @flaskApp.route('/view_request/<request_id>')
+@login_required
 def view_request(request_id):
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
     offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.jobRequest_id == jobRequest.id)).all()
     return render_template('view_request.html', job_request=jobRequest, offers=offers)
 
-@login_required
+
 @flaskApp.route('/offer_services/<request_id>', methods=['GET', 'POST'])
+@login_required
 def offer_services(request_id):
     tradie_user_id = int(current_user.id)
     tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
@@ -127,8 +131,9 @@ def offer_services(request_id):
         return redirect(url_for('home'))
     return render_template('offer_services.html', job_request=jobRequest, form=form)
 
-@login_required
+
 @flaskApp.route('/respond_to_offer/<offer_id>', methods=['GET','POST'])
+@login_required
 def respond_to_offer(offer_id):
     form = RespondToOfferForm()
     job_offer = db.session.scalar(sa.select(JobOffer).where(JobOffer.id == int(offer_id)))
@@ -156,15 +161,17 @@ def respond_to_offer(offer_id):
 
     return render_template('respond_to_offer.html', offer=job_offer, form=form)
 
-@login_required
+
 @flaskApp.route('/request_history')
+@login_required
 def request_history():
     user_id = int(current_user.id)
     user_requests = db.session.scalars(sa.select(JobRequest).where(JobRequest.user_id == user_id)).all()
     return render_template('request_history.html', requests=user_requests)
 
-@login_required
+
 @flaskApp.route('/offer_history')
+@login_required
 def offer_history():
     tradie_user_id = int(current_user.id)
     tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
@@ -174,8 +181,9 @@ def offer_history():
     user_offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.tradie_id == tradie_tradie_id)).all()
     return render_template('offer_history.html', offers=user_offers)
 
-@login_required
+
 @flaskApp.route('/search_requests', methods=['GET', 'POST'])
+@login_required
 def search_requests():
     form = RequestSearchForm()
     if form.validate_on_submit():
@@ -197,3 +205,28 @@ def search_requests():
         search_results = search.all()
         return render_template('search_requests.html', form=form, requests=search_results)
     return render_template('search_requests.html', form=form, requests=None)
+
+@flaskApp.route('/edit_request/<request_id>', methods=['GET', 'POST'])
+@login_required
+def edit_request(request_id):
+    user_id = int(current_user.id)
+    jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
+    if jobRequest.user_id != user_id:
+        flash('You are not authorized to edit this request!')
+        return redirect(url_for('view_request', request_id=request_id))
+    form = JobRequestForm()
+    if form.validate_on_submit() and jobRequest.user_id == user_id:
+        updated_request_data = {
+            'streetNumber':form.streetNumber.data,
+            'street':form.street.data,
+            'suburb':form.suburb.data,
+            'postcode':form.postcode.data,
+            'state':form.state.data,
+            'tradeRequired':form.tradeRequired.data,
+            'job':form.title.data,
+            'description':form.description.data
+        }
+        db.session.query(JobRequest).filter(JobRequest.id == request_id).update(updated_request_data)
+        flash('Job Request has been updated!')
+        return redirect(url_for('view_request', request_id=request_id))
+    return render_template('edit_request.html', form=form)
