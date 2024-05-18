@@ -1,0 +1,33 @@
+<header>
+    <div class="logo-container">
+        <img id="logo" src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Logo">
+    </div>
+    <div class="flashed_messages">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="title-container">
+        <h1>Job Matchmaker</h1>
+    </div>
+    {% if current_user.is_anonymous %}
+    <div class="signin">
+        <a href="{{ url_for('login') }}">Sign In</a>
+    </div>
+    {% else %}
+    <div class="user-profile">
+        <img id="profile-icon" src="{{ url_for('static', filename='images/placeholderprofile.jpeg') }}" alt="User Profile" class="profile-icon">
+        <div class="dropdown-menu">
+            <a href="{{ url_for('tradie_register')}}">Register as a Tradie</a>
+            <a href="{{ url_for('posting_request') }}">Create a job request</a>
+            <a href="{{ url_for('logout') }}">Sign Out</a>
+        </div>
+    </div>
+    {% endif %}
+</header>
