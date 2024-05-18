@@ -110,7 +110,7 @@ def offer_services(request_id):
         return redirect(url_for('main.home'))
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
     #don't allow tradies to offer services for jobs they are not qualified for
-    if existing_tradie.trade != jobRequest.tradeRequired:
+    if existing_tradie.trade != jobRequest.tradeRequired:.lower()
         flash(f'You are not qualified to offer services for a job that requires a {jobRequest.tradeRequired}!')
         return redirect(url_for('main.home'))
     form = JobOfferForm()

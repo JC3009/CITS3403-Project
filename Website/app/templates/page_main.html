@@ -24,11 +24,6 @@
             <a href="{{ url_for('main.view_request', request_id=job.id) }}">View Job</a>
         </div>
         {% endfor %}
-        <div id="overlay" onclick="onOverlayClick()">
-            <div class="overlay-content">
-                <textarea readonly>Overlay opened successfully</textarea>
-            </div>
-        </div>
     </div>
     </section>
     {% endif %}
