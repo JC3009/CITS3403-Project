@@ -7,6 +7,18 @@
 </head>
 <body style="background-color: rgba(119, 22, 229, 0.639);">
     <h1 style="text-align: center;">Job Request Details</h1>
+    {% include 'header.html' %}
+    <div class="flashed_messages">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
     <div class="request-container">
         <div class="row">
             <div class="col md-6">
@@ -49,10 +61,17 @@
                             <p>Offerer email: {{ offer.tradie.user.email }}</p>
                             <p>Offered Price: ${{ offer.timeEstimate*offer.tradie.hourlyRate + offer.tradie.calloutFee }}</p>
                             <p>Estimated time: {{ offer.timeEstimate }}</p>
-                            <p>Accepted Status: {{ offer.acceptedStatus }}</p>
+                            {% if offer.acceptedStatus == True %}
+                            <p>This offer has been accepted</p>
+                            {% elif offer.rejectedStatus == True %}
+                            <p>This offer has been rejected</p>
+                            {% else %}
+                            <p>This offer has not been responded to yet</p>
+                            {% endif %}
                         {% if current_user.id == job_request.creator.id %}
                         <a href="{{ url_for('respond_to_offer', offer_id=offer.id) }}">Respond to this offer!</a>
                         {% endif %}
+                        
                     {% endfor %}
 
                     <p>To offer to complete this job <a href="{{ url_for('offer_services', request_id=job_request.id) }}">click here!</a></p>
