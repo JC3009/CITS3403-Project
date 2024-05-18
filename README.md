@@ -14,5 +14,11 @@
 
 
 3. a brief summary of the architecture of the application.
+
 4. instructions for how to launch the application.
+  - Ensure terminal is in CITS3403-Project/Website directory
+  - Ensure that FLASK_APP environment variable is set to webserver.py
+  - Ensure that TRADIE_SECRET_KEY environment variable is set to the secret key
+  - execute flask run
+  
 5. instructions for how to run the tests for the application.
