@@ -38,7 +38,13 @@
                     <p>Offerer email: {{ offer.tradie.user.email }}</p>
                     <p>Offered Price: ${{ offer.timeEstimate*offer.tradie.hourlyRate + offer.tradie.calloutFee }}</p>
                     <p>Estimated time: {{ offer.timeEstimate }}</p>
-                    <p>Accepted Status: {{ offer.acceptedStatus }}</p>
+                    {% if offer.acceptedStatus == True %}
+                    <p>This offer has been accepted</p>
+                    {% elif offer.rejectedStatus == True %}
+                    <p>This offer has been rejected</p>
+                    {% else %}
+                    <p>This offer has not been responded to yet</p>
+                    {% endif %}
                 </div>
                 {% if current_user.id == job_request.creator.id %}
                 <a href="{{ url_for('respond_to_offer', offer_id=offer.id) }}">Respond to this offer!</a>

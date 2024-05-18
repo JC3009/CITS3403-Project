@@ -72,6 +72,7 @@ class JobOffer(db.Model):
     timeEstimate: so.Mapped[float] = so.mapped_column(sa.Float) # time in hours
     dateOffered: so.Mapped[date] = so.mapped_column(sa.Date, index=True)
     acceptedStatus: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)  # Use False for default value, True for accepted offers
+    rejectedStatus: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)  # Use False for default value, True for rejected offers
 
     jobRequest_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('job_request.id'), index=True)
     jobRequest: so.Mapped[JobRequest] = so.relationship('JobRequest', back_populates='jobOffers')

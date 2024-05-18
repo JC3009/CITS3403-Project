@@ -146,7 +146,7 @@ def respond_to_offer(offer_id):
             flash('Job Offer has been accepted!')
             return redirect(url_for('home'))
         elif form.response.data == 'reject':
-            job_offer.acceptedStatus = True
+            job_offer.rejectedStatus = True
             db.session.commit()
             flash('Job Offer has been rejected!')
             return redirect(url_for('home'))
