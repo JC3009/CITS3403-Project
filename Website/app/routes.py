@@ -45,7 +45,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-
 @flaskApp.route('/posting_request', methods=['GET', 'POST'])
 @login_required
 def posting_request():
@@ -67,7 +66,6 @@ def posting_request():
         flash(f'Job request posted!')
         return redirect(url_for('home'))
     return render_template('posting_request.html', form=form)
-
 
 @flaskApp.route('/tradie_register', methods=['GET', 'POST'])
 @login_required
@@ -92,14 +90,12 @@ def tradie_register():
         return redirect(url_for('home'))
     return render_template('tradie_register.html', form=form)
 
-
 @flaskApp.route('/view_request/<request_id>')
 @login_required
 def view_request(request_id):
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
     offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.jobRequest_id == jobRequest.id)).all()
     return render_template('view_request.html', job_request=jobRequest, offers=offers)
-
 
 @flaskApp.route('/offer_services/<request_id>', methods=['GET', 'POST'])
 @login_required
@@ -131,7 +127,6 @@ def offer_services(request_id):
         return redirect(url_for('home'))
     return render_template('offer_services.html', job_request=jobRequest, form=form)
 
-
 @flaskApp.route('/respond_to_offer/<offer_id>', methods=['GET','POST'])
 @login_required
 def respond_to_offer(offer_id):
@@ -161,14 +156,12 @@ def respond_to_offer(offer_id):
 
     return render_template('respond_to_offer.html', offer=job_offer, form=form)
 
-
 @flaskApp.route('/request_history')
 @login_required
 def request_history():
     user_id = int(current_user.id)
     user_requests = db.session.scalars(sa.select(JobRequest).where(JobRequest.user_id == user_id)).all()
     return render_template('request_history.html', requests=user_requests)
-
 
 @flaskApp.route('/offer_history')
 @login_required
@@ -180,7 +173,6 @@ def offer_history():
         return redirect(url_for('home'))
     user_offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.tradie_id == tradie_tradie_id)).all()
     return render_template('offer_history.html', offers=user_offers)
-
 
 @flaskApp.route('/search_requests', methods=['GET', 'POST'])
 @login_required
