@@ -7,17 +7,6 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <div class="flashed_messages">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-    </div>
     <div class="request-container">
         <h1>Job Request Details</h1>
         <div class="job-details">
@@ -42,6 +31,11 @@
             <p><strong>Username:</strong> {{ job_request.creator.username }}</p>
             <p><strong>Email:</strong> {{ job_request.creator.email }}</p>
         </div>
+        <div>
+        {% if current_user.id == job_request.user_id %}
+        <p>To edit this job request <a href="{{ url_for('edit_request', request_id=job_request.id) }}">click here!</a></p>
+        {% endif %}
+        </div>
         <div class="offers">
             <h2>Offers</h2>
             {% for offer in offers %}
@@ -58,7 +52,7 @@
                     <p>This offer has not been responded to yet</p>
                     {% endif %}
                 </div>
-                {% if current_user.id == job_request.creator.id %}
+                {% if current_user.id == job_request.user_id %}
                 <a href="{{ url_for('respond_to_offer', offer_id=offer.id) }}">Respond to this offer!</a>
                 {% endif %}
             {% endfor %}
