@@ -18,7 +18,7 @@
                     <p>Accepted Status: {{ offer.acceptedStatus }}</p>
                 </div>
                 {% if current_user.id == offer.jobRequest.creator.id %}
-                <form action="{{ url_for('respond_to_offer', offer_id=offer.id) }}" method="post">
+                <form action="{{ url_for('main.respond_to_offer', offer_id=offer.id) }}" method="post">
                     {{ form.hidden_tag()}}
                     <div class="form-group">
                         {{form.response.label}}<br>
@@ -33,7 +33,7 @@
                 {% else %}
                     <p>Only the creator of a job request can respond to offers.</p>
                 {% endif %}
-        <p>To return home <a href="{{ url_for('home') }}">click here!</a></p>
+        <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
         </div>
         </div>
     </div>
