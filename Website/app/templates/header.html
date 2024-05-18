@@ -27,7 +27,11 @@
             <a href="{{ url_for('tradie_register')}}">Register as a Tradie</a>
             <a href="{{ url_for('posting_request') }}">Create a job request</a>
             <a href="{{ url_for('logout') }}">Sign Out</a>
+            <a href="{{ url_for('request_history') }}">Request History</a>
+            <a href="{{ url_for('offer_history') }}">Offer History</a>
+            <a href="{{ url_for('home') }}">Return Home</a>
         </div>
     </div>
     {% endif %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </header>
