@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    {% include 'header.html' %}
     <div class="request-container">
         <h1>Job Request History</h1>
         {% for job_request in requests %}
