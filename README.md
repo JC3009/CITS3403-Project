@@ -43,3 +43,7 @@ The application is built using javascript, html, css, and flask. jinja, sqlalche
   - execute flask run
   
 5. instructions for how to run the tests for the application.
+  - To run tests, make sure virtual environment has all packages in the requirements.txt file installed
+  - For testing we need to run pytest in the terminal, this can be done by entering pytest into the terminal.
+  - To ensure that pytest will run when entered, run export PYTHONPATH=.:$PYTHONPATH in the terminal.
+  - This will run the tests as long as long as the terminal is set in the project directory.
