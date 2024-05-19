@@ -1,13 +1,18 @@
+
+Here is a revised version of your HTML with the credits section filled in and a catchy phrase added to the overlay text:
+
+html
+Copy code
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body class = 'main-page'>
+<body class='main-page'>
     {% include 'header.html' %}
     <div class="gif-container">
         <img src="{{ url_for('static', filename='images/Tradie_Digging.gif') }}" alt="GIF">
-        <div class="overlay-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mollis mi at lacinia euismod. Sed lacinia mauris nec lacus accumsan pulvinar. Sed lacinia mauris nec lacus accumsan pulvinar.</div>
+        <div class="overlay-text">Connecting You to Trusted Tradies - Your Job, Our Priority!</div>
         <div class="button-container">
             {% if current_user.is_anonymous %}
             <a href="{{ url_for('main.login') }}">Create Account/ Sign In</a>
@@ -24,46 +29,15 @@
             <a href="{{ url_for('main.view_request', request_id=job.id) }}">View Job</a>
         </div>
         {% endfor %}
-    </div>
     </section>
     {% endif %}
     <section class="credits-section">
         <h2>Credits</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-        </p>
-    
-        </section>
+        <p>This application was created to bridge the gap between homeowners and skilled tradespeople. Our mission is to provide a seamless platform where users can easily find, hire, and collaborate with trusted tradies for various jobs. Whether you need a plumber, electrician, carpenter, or any other tradesperson, we've got you covered.</p>
+        <p>The development of this platform involved a dedicated team of developers, designers, and industry experts who worked tirelessly to ensure a user-friendly experience. We believe in the power of community and strive to support local tradespeople by connecting them with clients who need their services.</p>
+        <p>We would like to extend our gratitude to all the beta testers and early adopters who provided invaluable feedback during the development phase. Your insights have been instrumental in shaping this platform into what it is today.</p>
+        <p>Thank you for choosing our platform. We are committed to continually improving and evolving to meet your needs. If you have any suggestions or feedback, please do not hesitate to contact us.</p>
+    </section>
     {% block content %}{% endblock %}
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
