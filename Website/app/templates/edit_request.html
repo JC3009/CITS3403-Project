@@ -3,92 +3,91 @@
 <head>
     <title>Create Listing</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='request_style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"> <!-- Ensure main styles are included -->
 </head>
-<body class="request-page">
+<body class ="request-page">
   {% include 'header.html' %}
+  <h1>Create Job Request</h1>
   <div class="container">
-    <h1>Create Job Request</h1>
     <form action="{{ url_for('main.posting_request') }}" method="post">
       {{ form.hidden_tag() }}
-      <div class="centered-content">
-        <div class="left-column">
-          <div class="form-group">
-            {{ form.title.label }}<br>
-            {{ form.title(size=32) }}<br>
-            {% for error in form.title.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.description.label }}<br>
-            {{ form.description(size=32) }}<br>
-            {% for error in form.description.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.tradeRequired.label }}<br>
-            {{ form.tradeRequired() }}<br>
-            {% for error in form.description.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.streetNumber.label }}<br>
-            {{ form.streetNumber(size=32) }}<br>
-            {% for error in form.streetNumber.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.street.label }}<br>
-            {{ form.street(size=32) }}<br>
-            {% for error in form.street.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.suburb.label }}<br>
-            {{ form.suburb(size=32) }}<br>
-            {% for error in form.suburb.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.postcode.label }}<br>
-            {{ form.postcode(size=32) }}<br>
-            {% for error in form.postcode.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-
-          <div class="form-group">
-            {{ form.state.label }}<br>
-            {{ form.state() }}<br>
-            {% for error in form.state.errors %}
-            <span class="error">[{{ error }}]</span>
-            {% endfor %}
-          </div>
+    <div class="centered-content">
+      <div class="left-column">
+        <div class="form-group">
+          {{ form.title.label }}<br>
+          {{ form.title(size=32) }}<br>
+          {% for error in form.title.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
         </div>
-        <div class="add-images-container">
-          <h2>Add Images</h2>
-          <div class="image-drop-zone dotted-border" id="imageDropZone">
-            Drag and drop images here or click to browse
-          </div><br>
-          <div id="createPostContainer">
-            {{ form.submit() }}
-          </div>
-          <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
+
+        <div class="form-group">
+          {{ form.description.label }}<br>
+          {{ form.description(size=32) }}<br>
+          {% for error in form.description.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
         </div>
+
+        <div class="form-group">
+          {{ form.tradeRequired.label }}<br>
+          {{ form.tradeRequired() }}<br>
+          {% for error in form.description.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.streetNumber.label }}<br>
+          {{ form.streetNumber(size=32) }}<br>
+          {% for error in form.streetNumber.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.street.label }}<br>
+          {{ form.street(size=32) }}<br>
+          {% for error in form.street.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.suburb.label }}<br>
+          {{ form.suburb(size=32) }}<br>
+          {% for error in form.suburb.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.postcode.label }}<br>
+          {{ form.postcode(size=32) }}<br>
+          {% for error in form.postcode.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.state.label }}<br>
+          {{ form.state() }}<br>
+          {% for error in form.state.errors %}
+          <span class="error">[{{ error }}]</span>
+          {% endfor %}
+        </div>        
       </div>
+      <div class="add-images-container">
+        <h2>Add Images</h2>
+        <div class="image-drop-zone dotted-border" id="imageDropZone">
+          Drag and drop images here or click to browse
+        </div><br>
+      <div id="createPostContainer">
+        {{ form.submit() }}
+      </div>
+      <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
     </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>
