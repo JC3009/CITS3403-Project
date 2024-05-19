@@ -485,6 +485,9 @@ label[for="response"] {
 }
 
 /*search requests*/
+body.view-request, body.offer-services, body.respond-to-offer {
+  background-color: rgba(119, 22, 229, 0.639);
+}
 
 .search-container {
   background-color: rgba(237, 136, 227, 0.934);
