@@ -114,6 +114,8 @@ def offer_services(request_id):
     except TradieNotExistsError as e:
         flash(str(e))
         return redirect(url_for('main.home'))
+    except TradieExistsError:
+        pass
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
     tradie = db.session.scalar(sa.select(TradieUser).where(TradieUser.id == tradie_tradie_id))
     try:
