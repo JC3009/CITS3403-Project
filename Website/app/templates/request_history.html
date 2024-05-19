@@ -12,6 +12,7 @@
         {% for job_request in requests %}
         <div class="job-request">
             <p>Request {{ job_request.id }} <a href="{{ url_for('main.view_request', request_id=job_request.id)}}">{{ job_request.job }}</a></p>
+            <p>To edit this request <a href="{{ url_for('main.edit_request', request_id=job_request.id)}}">click here!</a></p>
         
         {% endfor %}
         <p>To return home <a href="{{ url_for('main.home') }}">click here!</a></p>
