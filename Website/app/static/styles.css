@@ -398,15 +398,17 @@ h1, h2 {
   
   /* request_view */
   .request-container {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 1); /* White background with 75% opacity */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 1); /* Solid white background */
     background-size: cover;
     background-position: center;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
+    width: 100%; /* Adjust width as needed */
+    max-width: 900px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container */
     text-align: center;
-    color: black; /* Ensures text is readable over the background */
+    color: black; /* Ensure text readability */
     position: relative; /* For pseudo-element positioning */
   }
   
@@ -426,30 +428,33 @@ h1, h2 {
     position: relative;
     z-index: 2; /* Ensure content is above the overlay */
   }
-
-.section {
-  background-color: rgba(97, 75, 47, 0.934);
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  color: azure;
-}
-
-.section h2 {
-  padding-bottom: 20px;
-}
-
-.offer-details {
-  padding: 50px
-}
-.offer-details h3 {
-  padding-bottom: 10px;
-}
-
-.offer-details a {
-  padding-top: 30px;
-}
+  
+  .section {
+    background-color: rgba(97, 75, 47, 0.934);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    color: azure;
+  }
+  
+  .section h2 {
+    margin-top: 10px; /* Reduced margin to bring the header closer */
+    padding-bottom: 10px; /* Adjusted padding */
+  }
+  
+  .offer-details {
+    padding: 20px; /* Reduced padding */
+  }
+  
+  .offer-details h3 {
+    margin-top: 20px; /* Reduced margin to bring the sub-header closer */
+    padding-bottom: 5px; /* Adjusted padding */
+  }
+  
+  .offer-details a {
+    margin-top: 10px; /* Reduced margin to bring the links closer */
+  }  
 
 /* Ensure readability of other elements */
 .container, .form-group, .job-description-container, .add-images-container, textarea, #createPostButton {
@@ -485,14 +490,20 @@ label[for="response"] {
 }
 
 /*search requests*/
+body.job-request-history {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  padding-top: 70px; /* Adjust this value to match the height of your header */
+}
 
 .search-container {
-  background-color: rgba(237, 136, 227, 0.934);
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  color: azure;
+    background-color: rgba(237, 136, 227, 0.934);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Ensure some space from the top */
+    color: azure;
 }
 
 /*request-history*/
@@ -537,3 +548,7 @@ a:hover {
 }
 
 
+/*background color*/
+.background-purple {
+  background-color: rgba(119, 22, 229, 0.639);
+}
