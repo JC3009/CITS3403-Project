@@ -173,11 +173,14 @@ def request_history():
 @login_required
 def offer_history():
     tradie_user_id = int(current_user.id)
+    tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
     try:
         existing_tradie_controller(tradie_user_id)
     except TradieNotExistsError as e:
         flash(str(e))
         return redirect(url_for('main.home'))
+    except TradieExistsError:
+        pass
     user_offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.tradie_id == tradie_tradie_id)).all()
     return render_template('offer_history.html', offers=user_offers)
 
