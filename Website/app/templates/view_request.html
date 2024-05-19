@@ -37,6 +37,9 @@
                     <h2>Creator Information</h2>
                     <p><strong>Username:</strong> {{ job_request.creator.username }}</p>
                     <p><strong>Email:</strong> {{ job_request.creator.email }}</p>
+                    {% if current_user.id == job_request.creator.id %}
+                    <p>To edit this request <a href="{{ url_for('main.edit_request', request_id=job_request.id)}}">click here!</a></p>
+                    {% endif %}
                 </div>
             </div>
 
