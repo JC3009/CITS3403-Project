@@ -5,6 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import db
 from app.models import User, JobRequest, TradieUser, JobOffer
+from app.controllers import login_user_controller, LoginError, existing_tradie_controller, TradieExistsError, TradieNotExistsError, compare_trade_controller, TradeError, job_request_controller, JobRequestError
 
 @flaskApp.route('/')
 def home():
@@ -18,12 +19,14 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = db.session.scalar(sa.select(User).where(User.username == form.username.data))
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('main.login'))
-        login_user(user)
-        flash(f'Logged in successfully. User: {current_user.username}')
-        return redirect(url_for('main.home'))
+        try:
+            login_user_controller(user, form.password.data)
+            login_user(user)
+            flash(f'Logged in successfully. User: {current_user.username}')
+            return redirect(url_for('main.home'))
+        except LoginError as e:
+            flash(str(e))
+            return redirect(url_for('main.login'))   
     return render_template('login.html', form=form)
 
 @flaskApp.route('/logout')
@@ -74,8 +77,10 @@ def tradie_register():
     #check if user has tradie account associated with them already
     existing_tradie = db.session.query(TradieUser).filter_by(user_id=user_id).first()
     #if they do, redirect them to home page
-    if existing_tradie:
-        flash('You have already registered as a tradie!')
+    try:
+        existing_tradie_controller(user_id)
+    except TradieExistsError as e:
+        flash(str(e))
         return redirect(url_for('main.home'))
     form = TradieUserForm()
     if form.validate_on_submit():
@@ -102,16 +107,17 @@ def view_request(request_id):
 def offer_services(request_id):
     tradie_user_id = int(current_user.id)
     tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
-    #check if user is a tradie
-    existing_tradie = db.session.query(TradieUser).filter_by(user_id=tradie_user_id).first()
-    #if they are not, redirect them to home page
-    if not existing_tradie:
-        flash('Only tradies can offer services!')
+    try:
+        existing_tradie_controller(tradie_user_id)
+    except TradieNotExistsError as e:
+        flash(str(e))
         return redirect(url_for('main.home'))
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
-    #don't allow tradies to offer services for jobs they are not qualified for
-    if existing_tradie.trade != jobRequest.tradeRequired.lower():
-        flash(f'You are not qualified to offer services for a job that requires a {jobRequest.tradeRequired}!')
+    tradie = db.session.scalar(sa.select(TradieUser).where(TradieUser.id == tradie_tradie_id))
+    try:
+        compare_trade_controller(tradie.trade, jobRequest.tradeRequired)
+    except TradeError as e:    
+        flash(str(e))
         return redirect(url_for('main.home'))
     form = JobOfferForm()
     if form.validate_on_submit():
@@ -133,14 +139,10 @@ def respond_to_offer(offer_id):
     form = RespondToOfferForm()
     job_offer = db.session.scalar(sa.select(JobOffer).where(JobOffer.id == int(offer_id)))
     #check if user is the creator of the job request associated with the offer
-    if job_offer.jobRequest.user_id != int(current_user.id):
-        flash('You are not authorized to respond to this offer!')
-        return redirect(url_for('main.view_request', request_id=job_offer.jobRequest.id))
-    if job_offer.acceptedStatus == True:
-        flash('You have already accepted this offer!')
-        return redirect(url_for('main.view_request', request_id=job_offer.jobRequest.id))
-    if job_offer.rejectedStatus == True:
-        flash('You have already rejected this offer!')
+    try:
+        job_request_controller(job_offer.jobRequest.user_id, int(current_user.id), job_offer.acceptedStatus, job_offer.rejectedStatus)
+    except JobRequestError as e:
+        flash(str(e))
         return redirect(url_for('main.view_request', request_id=job_offer.jobRequest.id))
     if form.validate_on_submit() and not (job_offer.acceptedStatus or job_offer.rejectedStatus):
         if form.response.data == 'accept':
@@ -167,9 +169,10 @@ def request_history():
 @login_required
 def offer_history():
     tradie_user_id = int(current_user.id)
-    tradie_tradie_id = db.session.scalar(sa.select(TradieUser.id).where(TradieUser.user_id == tradie_user_id))
-    if not tradie_tradie_id:
-        flash('Only tradies can view their offer history!')
+    try:
+        existing_tradie_controller(tradie_user_id)
+    except TradieNotExistsError as e:
+        flash(str(e))
         return redirect(url_for('main.home'))
     user_offers = db.session.scalars(sa.select(JobOffer).where(JobOffer.tradie_id == tradie_tradie_id)).all()
     return render_template('offer_history.html', offers=user_offers)
@@ -203,8 +206,10 @@ def search_requests():
 def edit_request(request_id):
     user_id = int(current_user.id)
     jobRequest = db.session.scalar(sa.select(JobRequest).where(JobRequest.id == int(request_id)))
-    if jobRequest.user_id != user_id:
-        flash('You are not authorized to edit this request!')
+    try:
+        job_request_controller(jobRequest.user_id, user_id, False, False)
+    except JobRequestError as e:
+        flash(str(e))
         return redirect(url_for('main.view_request', request_id=request_id))
     form = JobRequestForm()
     if form.validate_on_submit() and jobRequest.user_id == user_id:
