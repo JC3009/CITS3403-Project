@@ -2,6 +2,8 @@
 const header = document.querySelector("header");
 const logo = document.getElementById("logo");
 const profileIcon = document.getElementById('profile-icon');
+const flashedMessages = document.getElementById('flashedMessages');
+const dropdownMenu = document.querySelector('.dropdown-menu');
 
 // Define the scroll function
 function scrollFunction() {
@@ -19,17 +21,25 @@ function scrollFunction() {
 // Attach the scroll function to the window scroll event
 window.onscroll = scrollFunction;
 
-// Add click event listener to the user profile
-document.querySelector('.user-profile').addEventListener('click', function() {
-  document.querySelector('.dropdown-menu').style.display = 'block';
+// Toggle the dropdown menu visibility on profile icon click
+profileIcon.addEventListener('click', function() {
+  if (dropdownMenu.style.display === 'block') {
+    dropdownMenu.style.display = 'none';
+  } else {
+    dropdownMenu.style.display = 'block';
+  }
 });
 
-// Opens overlay when container is clicked
-function onContainerClick() {
-  document.getElementById('overlay').style.display = 'block';
-}
+// Hide dropdown menu when clicking outside
+document.addEventListener('click', function(event) {
+  if (!profileIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+    dropdownMenu.style.display = 'none';
+  }
+});
 
-// Closes overlay when overlay is clicked
-function onOverlayClick() {
-  document.getElementById('overlay').style.display = 'none';
-}
+// Hide flashed messages if there are none after the page loads
+window.addEventListener('load', function() {
+  if (flashedMessages && flashedMessages.innerHTML.trim() === '') {
+    flashedMessages.style.display = 'none';
+  }
+});
