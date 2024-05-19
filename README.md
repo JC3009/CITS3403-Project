@@ -33,6 +33,7 @@ The application is built using javascript, html, css, and flask. jinja, sqlalche
   - models.py contains all of the database models used by the application for storing, retreiving and using persistent data
   - forms.py builds the classes for each of the types of forms used in the application
   - controllers.py contains functions used to control the logic of the application, these functions are used by view functions in routes.py to control the logical flow of serving data to users.
+  - routes.py contains all of the view functions that control the execution of back end functionality to serve data to users.
 
 
 4. instructions for how to launch the application.
