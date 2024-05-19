@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body style="background-color: rgba(119, 22, 229, 0.639);">
+<body class="request-page">
     <h1 style="text-align: center;">Job Request Details</h1>
     {% include 'header.html' %}
     <div class="request-container">
@@ -37,6 +37,9 @@
                     <h2>Creator Information</h2>
                     <p><strong>Username:</strong> {{ job_request.creator.username }}</p>
                     <p><strong>Email:</strong> {{ job_request.creator.email }}</p>
+                    {% if current_user.id == job_request.creator.id %}
+                    <p>To edit this request <a href="{{ url_for('main.edit_request', request_id=job_request.id)}}">click here!</a></p>
+                    {% endif %}
                 </div>
             </div>
 

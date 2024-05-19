@@ -385,22 +385,38 @@ body.request-page {
   }
   
   /* request_view */
-.request-container {
-  padding: 20px;
-  background-color: rgba(211, 175, 232, 0.842);
-  backdrop-filter: blur(40px);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative;
-  width: 80%;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
-  margin: 0 auto;
-}
+  .request-container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 1); /* White background with 75% opacity */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    text-align: center;
+    color: black; /* Ensures text is readable over the background */
+    position: relative; /* For pseudo-element positioning */
+  }
+  
+  .request-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+    border-radius: 8px;
+    z-index: 1;
+  }
+  
+  .request-container > * {
+    position: relative;
+    z-index: 2; /* Ensure content is above the overlay */
+  }
 
 .section {
-  background-color: rgba(237, 136, 227, 0.934);
+  background-color: rgba(97, 75, 47, 0.934);
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -421,6 +437,19 @@ body.request-page {
 
 .offer-details a {
   padding-top: 30px;
+}
+
+/* Ensure readability of other elements */
+.container, .form-group, .job-description-container, .add-images-container, textarea, #createPostButton {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
 }
 
 /*offer_services*/
