@@ -82,6 +82,8 @@ def tradie_register():
     except TradieExistsError as e:
         flash(str(e))
         return redirect(url_for('main.home'))
+    except TradieNotExistsError:
+        pass
     form = TradieUserForm()
     if form.validate_on_submit():
         tradie = TradieUser(
