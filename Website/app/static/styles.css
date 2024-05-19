@@ -227,31 +227,34 @@ header.scrolled {
 /* Request Page CSS */
 
 body.request-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    background-image: url('images/construction.jpg');
-    background-size: cover;
-    background-color: rgba(255, 255, 255, 0.75);
-  }
-  
-  h1 {
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 80%;
-    background-color: rgba(255, 255, 255, 0.75);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url('images/construction.jpg'); /* Adjust to your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px; /* Adjust to match header height */
+  color: #fff; /* Adjust text color for better visibility */
+}
+
+h1, h2 {
+  color: #fff; /* Optional: Adjust text color for better visibility */
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  margin-top: 20px; /* Adjust if necessary */
+}
   
   .centered-content {
     width: 100%;
