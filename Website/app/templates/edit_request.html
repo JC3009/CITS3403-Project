@@ -2,13 +2,12 @@
 <html>
 <head>
     <title>Create Listing</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='request_style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"> <!-- Ensure main styles are included -->
 </head>
 <body class="request-page">
   {% include 'header.html' %}
   <div class="container">
-    <h1>Create Job Request</h1>
+    <h1>Edit Job Request</h1>
     <form action="{{ url_for('main.posting_request') }}" method="post">
       {{ form.hidden_tag() }}
       <div class="centered-content">
