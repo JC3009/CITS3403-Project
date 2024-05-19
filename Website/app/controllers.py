@@ -30,7 +30,7 @@ def existing_tradie_controller(user_id):
 
 def compare_trade_controller(tradie_trade, requiredTrade):
     if tradie_trade != requiredTrade:
-        raise TradeError(f"Your trade: {tradie.trade} does not match the required trade: {requiredTrade}!")
+        raise TradeError(f"Your trade: {tradie_trade} does not match the required trade: {requiredTrade}!")
     
 def job_request_controller(job_request_author, current_user_id, job_offer_accepted, job_offer_rejected):
     if job_request_author != current_user_id:
