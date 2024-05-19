@@ -487,3 +487,41 @@ label[for="response"] {
 .request-container .job-request {
   color: azure;
 }
+
+/*offer-history*/
+.offer-container {
+    padding-top: 100px; /* Adjust this value as needed */
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.job-offer {
+    background-color: rgba(211, 175, 232, 0.842);
+    backdrop-filter: blur(40px);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.job-offer p {
+    color: azure;
+}
+
+h1, h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
