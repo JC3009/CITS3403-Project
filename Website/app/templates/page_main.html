@@ -7,7 +7,7 @@
     {% include 'header.html' %}
     <div class="gif-container">
         <img src="{{ url_for('static', filename='images/Tradie_Digging.gif') }}" alt="GIF">
-        <div class="overlay-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mollis mi at lacinia euismod. Sed lacinia mauris nec lacus accumsan pulvinar. Sed lacinia mauris nec lacus accumsan pulvinar.</div>
+        <div class="overlay-text">The Perfect Job, Just a Match Away</div>
         <div class="button-container">
             {% if current_user.is_anonymous %}
             <a href="{{ url_for('main.login') }}">Create Account/ Sign In</a>
@@ -29,38 +29,17 @@
     {% endif %}
     <section class="credits-section">
         <h2>Credits</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        <p>
+            At Job Matchmaker, our mission is to bridge the gap between talented individuals and their ideal career opportunities. 
+            We are dedicated to understanding the unique strengths and aspirations of each candidate, connecting them with employers who value and nurture their potential. Through personalized service, innovative solutions, and a commitment to excellence, we strive to empower job seekers to achieve their professional dreams while helping businesses find the perfect match to drive their success
         </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id feugiat purus. Sed ut facilisis lacus.
-
-            Integer     id feugiat purus. Integer mollis mi at lacinia euismod. Suspendisse nec efficitur lectus. Sed lacinia mauris nec lacus accumsan pulvinar. Nullam varius aliquam feugiat.
+        <p>In the Job Matchmaker app, users can effortlessly create accounts by providing their email. 
+            Once registered, they can post detailed job requests specifying their needs, such as required skills, job duration, and location. 
+            This feature enables individuals to outline precisely what they are looking for, making it easier for suitable professionals to find and respond to these opportunities. 
+            On the other side, tradies  can create specialized accounts tailored to their profession. 
+            These tradie-specific profiles allow them to showcase their skills, certifications, experience, and areas of expertise. 
+            Tradies can then browse the posted requests and directly respond to the ones that match their skill set and availability. 
+            This interactive platform ensures a streamlined process where job seekers and tradespeople can connect efficiently, facilitating quicker, more accurate job placements and fulfilling project needs effectively.
         </p>
     
         </section>
